@@ -24,9 +24,9 @@
 		</div>
 		
 		<div class="form-check form-check-inline">
-			<input id="chkColor" type="checkbox" name="color" required>
+			<input id="chkColor" name="isCustom" type="checkbox">
 			<label id="lbl-color" class="form-check-label" for="color"> &iquest;Crear color personalizado? </label>
-			<input id="color-picker" class="jscolor form-control" >
+			<input id="color-picker" class="jscolor form-control" name="color">
 		</div>
 		
 		<div class="form-group form-inline dropdown">
@@ -34,7 +34,7 @@
 		  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		    Elegir material
 		  </button>
-		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		  <div class="dropdown-menu" name="material" aria-labelledby="dropdownMenuButton">
 		    <a class="dropdown-item" value="1">Plástico</a>
 		    <a class="dropdown-item" value="2">Madera</a>
 		    <a class="dropdown-item" value="3">Aluminio</a>
@@ -43,7 +43,7 @@
 		</div>
 		
 		<br><br>
-		<em>(*) Campos obligatorios</em>
+		<small>(*) Campos obligatorios</<small>>
 		<br><br>
 		<button class="btn btn-primary" type="submit">Calcular precio</button>
 	</form>

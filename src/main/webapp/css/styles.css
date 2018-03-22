@@ -4,6 +4,18 @@ img.logo-navbar {
 	width: 100px;
 }
 
+.form-inline, .form-check-inline {
+	margin: 15px;
+	width: 100%;
+}
+
+.form-inline label {
+	width: 30%;
+	display: flex;
+    justify-content: flex-start;
+    font-weight: 600;
+}
+
 #lbl-color {
 	margin: 5px;
 }

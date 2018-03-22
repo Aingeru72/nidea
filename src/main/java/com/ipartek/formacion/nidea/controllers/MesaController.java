@@ -30,6 +30,17 @@ public class MesaController extends HttpServlet {
 			int numPatas = Integer.parseInt(sNumPatas);
 			mesa.setNumPatas(numPatas);
 		}
+		
+		String sDimension = request.getParameter("dimension");
+		if (sDimension != null) {
+			int dimension = Integer.parseInt(sDimension);
+			mesa.setDimension(dimension);
+		}
+		
+		String bColorCustom = request.getParameter("isCustom");
+		if (bColorCustom != null) {
+			mesa.setColor("custom");
+		}
 
 		// Enviar atributos a la JSP (request interna)
 		request.setAttribute("mesa", mesa);
