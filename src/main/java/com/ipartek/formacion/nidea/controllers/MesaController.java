@@ -1,0 +1,51 @@
+package com.ipartek.formacion.nidea.controllers;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.ipartek.formacion.nidea.pojo.Mesa;
+
+/**
+ * Servlet implementation class MesaController
+ */
+public class MesaController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		Mesa mesa = new Mesa();
+
+		// Recoger los parametros ( siempre llegan como String )
+		String sNumPatas = request.getParameter("numPatas");
+		if (sNumPatas != null) {
+			int numPatas = Integer.parseInt(sNumPatas);
+			mesa.setNumPatas(numPatas);
+		}
+
+		// Enviar atributos a la JSP (request interna)
+		request.setAttribute("mesa", mesa);
+
+		// Ir a la JSP
+		request.getRequestDispatcher("mesa.jsp").forward(request, response);
+		;
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+}

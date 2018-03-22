@@ -1,0 +1,14 @@
+/* Estilos NIDEA */
+
+img.logo-navbar {
+	width: 100px;
+}
+
+#lbl-color {
+	margin: 5px;
+}
+
+#color-picker {
+	display: none;
+	width: 100px;
+}
