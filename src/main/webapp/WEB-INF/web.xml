@@ -4,14 +4,37 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <welcome-file-list>
+  	<welcome-file>/</welcome-file>
+  </welcome-file-list>
   <servlet>
   	<servlet-name>MesaController</servlet-name>
   	<display-name>MesaController</display-name>
   	<description>Controlador para generar mesas</description>
   	<servlet-class>com.ipartek.formacion.nidea.controllers.MesaController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>CalculadoraController</servlet-name>
+  	<display-name>CalculadoraController</display-name>
+  	<description></description>
+  	<servlet-class>com.ipartek.formacion.nidea.controllers.CalculadoraController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>HomeController</servlet-name>
+  	<display-name>HomeController</display-name>
+  	<description>Controlador inicial</description>
+  	<servlet-class>com.ipartek.formacion.nidea.controllers.HomeController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>MesaController</servlet-name>
   	<url-pattern>/generar-mesa</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CalculadoraController</servlet-name>
+  	<url-pattern>/calculadora</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>HomeController</servlet-name>
+  	<url-pattern>/</url-pattern>
   </servlet-mapping>
 </web-app>

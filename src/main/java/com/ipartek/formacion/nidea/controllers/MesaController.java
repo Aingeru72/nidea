@@ -61,7 +61,6 @@ public class MesaController extends HttpServlet {
 
 		// Ir a la JSP
 		request.getRequestDispatcher("mesa.jsp").forward(request, response);
-		;
 	}
 
 	/**
