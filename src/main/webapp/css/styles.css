@@ -6,11 +6,11 @@ img.logo-navbar {
 
 .form-inline, .form-check-inline {
 	margin: 15px;
-	width: 100%;
+	width: 90%;
 }
 
 .form-inline label {
-	width: 30%;
+	width: 20%;
 	display: flex;
     justify-content: flex-start;
     font-weight: 600;
@@ -20,7 +20,10 @@ img.logo-navbar {
 	margin: 5px;
 }
 
-#color-picker {
+#muestra-color {
 	display: none;
+}
+
+#color-picker {
 	width: 100px;
 }

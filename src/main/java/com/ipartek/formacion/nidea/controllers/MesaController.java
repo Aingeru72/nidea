@@ -30,20 +30,34 @@ public class MesaController extends HttpServlet {
 			int numPatas = Integer.parseInt(sNumPatas);
 			mesa.setNumPatas(numPatas);
 		}
-		
+
 		String sDimension = request.getParameter("dimension");
 		if (sDimension != null) {
 			int dimension = Integer.parseInt(sDimension);
 			mesa.setDimension(dimension);
 		}
-		
-		String bColorCustom = request.getParameter("isCustom");
-		if (bColorCustom != null) {
-			mesa.setColor("custom");
+
+		String sMaterial = request.getParameter("material");
+		if (sMaterial != null) {
+			int material = Integer.parseInt(sMaterial);
+			mesa.setMaterial(material);
+		}
+
+		String sEsCustom = request.getParameter("isCustom");
+		String sColorCustom = request.getParameter("color");
+		// Si el checkbox está checked --> "on"
+		// Si el checkbox NO está checked --> null
+		if (sEsCustom != null) {
+			mesa.setColor(sColorCustom);
+			mesa.setCustomColor(true);
+		} else {
+			mesa.setCustomColor(false);
 		}
 
 		// Enviar atributos a la JSP (request interna)
 		request.setAttribute("mesa", mesa);
+		request.setAttribute("materiales", Mesa.MATERIALES_LISTA);
+		request.setAttribute("materialesID", Mesa.MATERIALES_ID);
 
 		// Ir a la JSP
 		request.getRequestDispatcher("mesa.jsp").forward(request, response);

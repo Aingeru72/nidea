@@ -1,7 +1,7 @@
 <body>
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="../index.jsp">
+	  <a class="navbar-brand" href="../nidea">
 		<img class="logo-navbar" src="logo.png" alt="logo NIDEA">
 	  </a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

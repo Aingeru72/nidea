@@ -1,9 +1,9 @@
-// 1. Definición del paquete
+// 1. Definiciï¿½n del paquete
 package com.ipartek.formacion.nidea.pojo;
 
-// 2. Import de librerías
+// 2. Import de librerï¿½as
 
-// 3. Definición de la Clase
+// 3. Definiciï¿½n de la Clase
 public class Mesa {
 
 	// Constantes
@@ -21,15 +21,19 @@ public class Mesa {
 	public static final int MATERIAL_ALUMINIO = 3;
 	public static final int MATERIAL_ACERO = 4;
 
-	// 4. Definición de atributos
+	public static final String[] MATERIALES_LISTA = { "plastico", "madera", "aluminio", "acero" };
+	public static final int[] MATERIALES_ID = { 1, 2, 3, 4 };
+
+	// 4. Definiciï¿½n de atributos
 	private int numPatas;
 	private int dimension; // m2
 	private String color;
+	private boolean customColor; // color customizado
 	private int material;
 
 	/*
-	 * 5. Definición de Métodos 5.1 Constructor(es) 5.2 Getters & Setters 5.3 Otros
-	 * métodos
+	 * 5. Definiciï¿½n de Mï¿½todos 5.1 Constructor(es) 5.2 Getters & Setters 5.3 Otros
+	 * mï¿½todos
 	 */
 
 	// 5.1 Constructores
@@ -45,7 +49,7 @@ public class Mesa {
 	 * Crear nueva instancia del tipo Mesa
 	 * 
 	 * @param numPatas
-	 *            entero con el número de patas, SI es negativo se inicializa a 0
+	 *            entero con el nï¿½mero de patas, SI es negativo se inicializa a 0
 	 * @author Aingeru Sanchez
 	 */
 	public Mesa(int numPatas, int dimension, String color, int material) {
@@ -63,10 +67,10 @@ public class Mesa {
 	}
 
 	/**
-	 * Asignar el número de patas de la mesa; IF numPatas < 0 => 0 else numPatas
+	 * Asignar el nï¿½mero de patas de la mesa; IF numPatas < 0 => 0 else numPatas
 	 * 
 	 * @param numPatas:
-	 *            entero que muestra el número de patas
+	 *            entero que muestra el nï¿½mero de patas
 	 */
 	public void setNumPatas(int numPatas) {
 		this.numPatas = (numPatas <= 0) ? 1 : numPatas;
@@ -96,13 +100,21 @@ public class Mesa {
 		this.material = materrial;
 	}
 
+	public boolean isCustomColor() {
+		return customColor;
+	}
+
+	public void setCustomColor(boolean customColor) {
+		this.customColor = customColor;
+	}
+
 	@Override
 	public String toString() {
 		return "Mesa [numPatas=" + numPatas + ", dimension=" + dimension + ", color=" + color + ", materrial="
 				+ material + "]";
 	}
 
-	// 5.3 Otros métodos
+	// 5.3 Otros mï¿½todos
 
 	/**
 	 * Calculamos el precio de la mesa en funcion de los materiales usados
@@ -119,12 +131,12 @@ public class Mesa {
 		// Calculamos el precio por m2
 		precio += this.getDimension() * PRECIO_M2;
 		// Calculamos precio por color
-		if (PRECIO_COLOR_NAME_CUSTOM.equalsIgnoreCase(this.getColor())) {
+		if (this.isCustomColor()) {
 			precio += PRECIO_COLOR_CUSTOM;
 		}
 		// Calculamos precio por material
 		switch (this.getMaterial()) {
-		case 1: // Plástico
+		case 1: // Plï¿½stico
 			precio += PRECIO_MATERIAL_PLASTICO;
 			break;
 		case 2: // Madera
