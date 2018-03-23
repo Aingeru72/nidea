@@ -52,10 +52,11 @@
 		
 		<div id="muestra-color" class="form-group form-inline" <%=(mesa.isCustomColor())?"style='display: flex'":"style='display: none'"%>>
 			<label for="color-picker">Color: </label>
-			<input id="color-picker" class="jscolor form-control" name="color" value=<%=(mesa.isCustomColor())?mesa.getColor():"FFF"%> >
+			<input id="color-picker" class="jscolor form-control" name="color" value=<%=(mesa.isCustomColor())?mesa.getColor():"FFFFFF"%> >
 		</div>
 
-		<small>(*) Campos obligatorios</<small>>
+		<br>
+		<small>(*) Campos obligatorios</<small>
 		<br><br>
 		<button class="btn btn-primary" type="submit">Calcular precio</button>
 	</form>
