@@ -4,6 +4,7 @@ public class Material {
 
 	public static final String[] NOMBRES = { "madera", "acero", "aluminio", "plastico" };
 	public static final int[] PRECIOS = { 4, 6, 5, 2 };
+	public static final int[] IDS = { 1, 2, 3, 4 };
 
 	// Atributos
 	private String nombre;
@@ -11,6 +12,13 @@ public class Material {
 	private int id;
 
 	// Constructor
+	public Material() {
+		super();
+		this.id = IDS[0];
+		this.nombre = NOMBRES[0];
+		this.precio = PRECIOS[0];
+	}
+
 	public Material(String nombre, int precio, int id) {
 		super();
 		this.nombre = nombre;

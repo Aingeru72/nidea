@@ -60,7 +60,7 @@ public class MesaController extends HttpServlet {
 		request.setAttribute("materialesID", Mesa.MATERIALES_ID);
 
 		// Ir a la JSP
-		request.getRequestDispatcher("mesa.jsp").forward(request, response);
+		request.getRequestDispatcher("views/mesa.jsp").forward(request, response);
 	}
 
 	/**

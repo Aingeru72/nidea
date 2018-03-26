@@ -1,6 +1,6 @@
 <%@page import="com.ipartek.formacion.nidea.pojo.Mesa"%>
-<jsp:include page="templates/head.jsp"></jsp:include>
-<jsp:include page="templates/navbar.jsp"></jsp:include>
+<jsp:include page="/templates/head.jsp"></jsp:include>
+<jsp:include page="/templates/navbar.jsp"></jsp:include>
 
 <%
 	// Recoger atributo del controlador, cuando exista
@@ -61,4 +61,4 @@
 		<button class="btn btn-primary" type="submit">Calcular precio</button>
 	</form>
 
-<jsp:include page="templates/footer.jsp"></jsp:include>
+<jsp:include page="/templates/footer.jsp"></jsp:include>
