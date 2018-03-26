@@ -2,20 +2,10 @@
 <jsp:include page="/templates/head.jsp"></jsp:include>
 <jsp:include page="/templates/navbar.jsp"></jsp:include>
 
-<%
-	String msg = (String)request.getAttribute("msg");
-%>
-
 	<section id="secCalculadora">
 	
-<!-- 		TODO: mostrar solo después de calcular -->
-		<div class="alert alert-warning alert-dismissible fade show" role="alert">
-		  <%=msg%>
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		    <span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-
+		<jsp:include page="/templates/alert.jsp"></jsp:include>
+	
 		<h1 class="clearfix">Calculadora</h1>
 		
 		<form action="calculadora" method="post">

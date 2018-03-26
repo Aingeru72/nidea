@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.nidea.pojo.Alert;
+
 /**
  * Servlet implementation class CalculadoraController
  */
@@ -57,11 +59,11 @@ public class CalculadoraController extends HttpServlet {
 			dispatch = request.getRequestDispatcher("views/resultado.jsp");
 		} catch (NumberFormatException nfe) {
 			nfe.printStackTrace();
-			request.setAttribute("msg", "El número introducido no es correcto");
+			request.setAttribute("alert", new Alert(nfe.getMessage(), Alert.TIPO_WARNING));
 			dispatch = request.getRequestDispatcher("views/calculadora.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("msg", "Ha ocurrido un error");
+			request.setAttribute("alert", new Alert(e.getMessage(), Alert.TIPO_WARNING));
 			dispatch = request.getRequestDispatcher("views/calculadora.jsp");
 		} finally {
 			dispatch.forward(request, response);
@@ -118,7 +120,7 @@ public class CalculadoraController extends HttpServlet {
 				resultado = num1 / num2;
 			} catch (Exception e) {
 				e.printStackTrace();
-				request.setAttribute("msg", "No se puede dividir por '0'");
+				request.setAttribute("alert", new Alert(e.getMessage(), Alert.TIPO_WARNING));
 				dispatch = request.getRequestDispatcher("views/calculadora.jsp");
 			}
 			break;

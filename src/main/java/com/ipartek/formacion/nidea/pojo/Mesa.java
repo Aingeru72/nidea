@@ -51,8 +51,9 @@ public class Mesa {
 	 * @param numPatas
 	 *            entero con el n�mero de patas, SI es negativo se inicializa a 0
 	 * @author Aingeru Sanchez
+	 * @throws MesaException
 	 */
-	public Mesa(int numPatas, int dimension, String color, int material) {
+	public Mesa(int numPatas, int dimension, String color, int material) throws MesaException {
 		super();
 		// this.numPatas = numPatas;
 		this.setNumPatas(numPatas);
@@ -67,13 +68,19 @@ public class Mesa {
 	}
 
 	/**
-	 * Asignar el n�mero de patas de la mesa; IF numPatas < 0 => 0 else numPatas
+	 * Asignar el número de patas de la mesa; IF numPatas < 0 => 1 else numPatas
 	 * 
 	 * @param numPatas:
 	 *            entero que muestra el n�mero de patas
+	 * @throws MesaException:
+	 *             lanza la excepción si numPatas <= 0
 	 */
-	public void setNumPatas(int numPatas) {
-		this.numPatas = (numPatas <= 0) ? 1 : numPatas;
+	public void setNumPatas(int numPatas) throws MesaException {
+		// this.numPatas = (numPatas <= 0) ? 1 : numPatas;
+		if (numPatas <= 0) {
+			throw new MesaException(MesaException.MENSAJE_PATAS);
+		}
+		this.numPatas = numPatas;
 	}
 
 	public int getDimension() {

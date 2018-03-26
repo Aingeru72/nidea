@@ -10,7 +10,10 @@
 	}
 	String[] materiales = (String[])request.getAttribute("materiales");
 	int[] materialesID = (int[])request.getAttribute("materialesID");
+	
 %>
+
+	<jsp:include page="/templates/alert.jsp"></jsp:include>
 	
 	<h2>Precio: <%=mesa.getPrecio()%> &euro;</h2>
 	

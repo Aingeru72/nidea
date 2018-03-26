@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.nidea.pojo.Alert;
 import com.ipartek.formacion.nidea.pojo.Mesa;
+import com.ipartek.formacion.nidea.pojo.MesaException;
 
 /**
  * Servlet implementation class MesaController
@@ -28,7 +30,17 @@ public class MesaController extends HttpServlet {
 		String sNumPatas = request.getParameter("numPatas");
 		if (sNumPatas != null) {
 			int numPatas = Integer.parseInt(sNumPatas);
-			mesa.setNumPatas(numPatas);
+			try {
+				mesa.setNumPatas(numPatas);
+			} catch (MesaException me) {
+				me.printStackTrace();
+				try {
+					mesa.setNumPatas(1);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				request.setAttribute("alert", new Alert(me.getMessage(), Alert.TIPO_WARNING));
+			}
 		}
 
 		String sDimension = request.getParameter("dimension");
