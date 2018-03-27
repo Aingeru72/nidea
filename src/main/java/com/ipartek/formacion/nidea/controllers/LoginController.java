@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet {
 
 			if (USER.equalsIgnoreCase(user) && PASS.equals(pass)) {
 				view = "views/backoffice/index.jsp";
-				alert = new Alert("Ongi Etorri!", Alert.TIPO_INFO);
+				// alert = new Alert("Ongi Etorri!", Alert.TIPO_INFO);
 			} else {
 				view = "views/login.jsp";
 				alert = new Alert("Usuario o contraseña incorrectas", Alert.TIPO_DANGER);
