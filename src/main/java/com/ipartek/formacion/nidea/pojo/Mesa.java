@@ -9,27 +9,15 @@ public class Mesa {
 	// Constantes
 	final static int PRECIO_PATA = 1;
 	final static int PRECIO_M2 = 5;
-	final static int PRECIO_MATERIAL_PLASTICO = 2;
-	final static int PRECIO_MATERIAL_MADERA = 4;
-	final static int PRECIO_MATERIAL_ALUMINIO = 5;
-	final static int PRECIO_MATERIAL_ACERO = 6;
-	final static int PRECIO_COLOR_CUSTOM = 23;
 	final static String PRECIO_COLOR_NAME_CUSTOM = "custom";
-
-	public static final int MATERIAL_PLASTICO = 1;
-	public static final int MATERIAL_MADERA = 2;
-	public static final int MATERIAL_ALUMINIO = 3;
-	public static final int MATERIAL_ACERO = 4;
-
-	public static final String[] MATERIALES_LISTA = { "plastico", "madera", "aluminio", "acero" };
-	public static final int[] MATERIALES_ID = { 1, 2, 3, 4 };
+	public static final int PRECIO_COLOR_CUSTOM = 23;
 
 	// 4. Definici�n de atributos
 	private int numPatas;
 	private int dimension; // m2
 	private String color;
 	private boolean customColor; // color customizado
-	private int material;
+	private Material material;
 
 	/*
 	 * 5. Definici�n de M�todos 5.1 Constructor(es) 5.2 Getters & Setters 5.3 Otros
@@ -42,7 +30,7 @@ public class Mesa {
 		this.numPatas = 4;
 		this.dimension = 1;
 		this.color = "blanco";
-		this.material = MATERIAL_MADERA;
+		this.material = new Material();
 	}
 
 	/**
@@ -53,7 +41,7 @@ public class Mesa {
 	 * @author Aingeru Sanchez
 	 * @throws MesaException
 	 */
-	public Mesa(int numPatas, int dimension, String color, int material) throws MesaException {
+	public Mesa(int numPatas, int dimension, String color, Material material) throws MesaException {
 		super();
 		// this.numPatas = numPatas;
 		this.setNumPatas(numPatas);
@@ -99,12 +87,12 @@ public class Mesa {
 		this.color = color;
 	}
 
-	public int getMaterial() {
+	public Material getMaterial() {
 		return material;
 	}
 
-	public void setMaterial(int materrial) {
-		this.material = materrial;
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 
 	public boolean isCustomColor() {
@@ -142,22 +130,24 @@ public class Mesa {
 			precio += PRECIO_COLOR_CUSTOM;
 		}
 		// Calculamos precio por material
-		switch (this.getMaterial()) {
-		case 1: // Pl�stico
-			precio += PRECIO_MATERIAL_PLASTICO;
-			break;
-		case 2: // Madera
-			precio += PRECIO_MATERIAL_MADERA;
-			break;
-		case 3: // Aluminio
-			precio += PRECIO_MATERIAL_ALUMINIO;
-			break;
-		case 4: // Acero
-			precio += PRECIO_MATERIAL_ACERO;
-			break;
-		default: // Optional
-			break;
-		}
+		// switch (this.getMaterial()) {
+		// case 1: // Pl�stico
+		// precio += PRECIO_MATERIAL_PLASTICO;
+		// break;
+		// case 2: // Madera
+		// precio += PRECIO_MATERIAL_MADERA;
+		// break;
+		// case 3: // Aluminio
+		// precio += PRECIO_MATERIAL_ALUMINIO;
+		// break;
+		// case 4: // Acero
+		// precio += PRECIO_MATERIAL_ACERO;
+		// break;
+		// default: // Optional
+		// break;
+		// }
+		// CHANGES: ahora el Material es un POJO
+		precio += this.getMaterial().getPrecio();
 
 		return precio;
 	}

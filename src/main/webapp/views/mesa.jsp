@@ -1,4 +1,6 @@
 <%@page import="com.ipartek.formacion.nidea.pojo.Mesa"%>
+<%@page import="com.ipartek.formacion.nidea.pojo.Material"%>
+<%@page import="java.util.ArrayList"%>
 <jsp:include page="/templates/head.jsp"></jsp:include>
 <jsp:include page="/templates/navbar.jsp"></jsp:include>
 
@@ -7,9 +9,9 @@
 	Mesa mesa = (Mesa) request.getAttribute("mesa");
 	if (mesa == null) {
 		mesa = new Mesa();
+		mesa.getMaterial().setId(0);
 	}
-	String[] materiales = (String[])request.getAttribute("materiales");
-	int[] materialesID = (int[])request.getAttribute("materialesID");
+	ArrayList<Material> materiales = (ArrayList<Material>)request.getAttribute("materiales");
 	
 %>
 
@@ -30,22 +32,14 @@
 		
 		<div class="form-group form-inline dropdown">
 		  <label for="material">Material*: </label>
-		  <!-- <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Elegir material
-		  </button>
-		  <div name="material" class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
 		  <select name="material" class="form-control">
-		  	<% for (int i = 0; i < materiales.length; i++ ) { %>
-		  		<option value="<%=materialesID[i]%>" <%=(mesa.getMaterial()==materialesID[i])?"selected":""%> >
-		  				<%= materiales[i] %>
+		  	<option value="0">Selecciona material</option>
+		  	<% for (int i = 0; i < materiales.size(); i++ ) { %>
+		  		<option value="<%=materiales.get(i).getId()%>" <%=( mesa.getMaterial().getId() == materiales.get(i).getId() )?"selected":""%> >
+		  				<%= materiales.get(i).getNombre() %> - <%= materiales.get(i).getPrecio() %>	&euro;
 		  		</option>
 		  	<% } %>
-<!-- 		    <a  value="1">Plastico</a> -->
-<!-- 		    <a class="dropdown-item" value="2">Madera</a> -->
-<!-- 		    <a class="dropdown-item" value="3">Aluminio</a> -->
-<!-- 		    <a class="dropdown-item" value="4">Acero</a> -->
 		  </select>
-<!-- 		  </div> -->
 		</div>
 		
 		<div class="form-check form-check-inline">
