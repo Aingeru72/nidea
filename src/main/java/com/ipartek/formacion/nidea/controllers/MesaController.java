@@ -1,13 +1,16 @@
 package com.ipartek.formacion.nidea.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.nidea.model.MaterialDAO;
 import com.ipartek.formacion.nidea.pojo.Alert;
+import com.ipartek.formacion.nidea.pojo.Material;
 import com.ipartek.formacion.nidea.pojo.Mesa;
 import com.ipartek.formacion.nidea.pojo.MesaException;
 
@@ -16,6 +19,8 @@ import com.ipartek.formacion.nidea.pojo.MesaException;
  */
 public class MesaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	MaterialDAO dao = new MaterialDAO();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -49,9 +54,10 @@ public class MesaController extends HttpServlet {
 			mesa.setDimension(dimension);
 		}
 
-		String sMaterial = request.getParameter("material");
-		if (sMaterial != null) {
-			int material = Integer.parseInt(sMaterial);
+		String sMaterialID = request.getParameter("material");
+		if (sMaterialID != null) {
+			int materialID = Integer.parseInt(sMaterialID);
+			Material material = getMaterialById(materialID);
 			mesa.setMaterial(material);
 		}
 
@@ -68,11 +74,26 @@ public class MesaController extends HttpServlet {
 
 		// Enviar atributos a la JSP (request interna)
 		request.setAttribute("mesa", mesa);
-		request.setAttribute("materiales", Mesa.MATERIALES_LISTA);
-		request.setAttribute("materialesID", Mesa.MATERIALES_ID);
+		request.setAttribute("materiales", dao.getAll());
 
 		// Ir a la JSP
 		request.getRequestDispatcher("views/mesa.jsp").forward(request, response);
+	}
+
+	private Material getMaterialById(int materialId) {
+		ArrayList<Material> tablaMateriales = dao.getAll();
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!tablaMateriales.isEmpty() && !encontrado) {
+			if (tablaMateriales.get(i).getId() == materialId) {
+				encontrado = true;
+			}
+			i++;
+
+		}
+
+		return tablaMateriales.get(i - 1);
 	}
 
 	/**

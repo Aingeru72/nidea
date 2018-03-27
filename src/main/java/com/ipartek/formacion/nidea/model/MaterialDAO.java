@@ -25,7 +25,7 @@ public class MaterialDAO {
 		ResultSet rs = null;
 
 		try {
-			Class.forName("com.mysql,jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			final String URL = "jdbc:mysql://192.168.0.42:3306/spoty?user=alumno&password=alumno";
 			con = DriverManager.getConnection(URL);
 			String sql = "SELECT id,nombre,precio FROM material";
