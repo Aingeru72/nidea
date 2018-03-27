@@ -8,7 +8,7 @@ public class Material {
 
 	// Atributos
 	private String nombre;
-	private int precio;
+	private float precio;
 	private int id;
 
 	// Constructor
@@ -35,11 +35,11 @@ public class Material {
 		this.nombre = nombre;
 	}
 
-	public int getPrecio() {
+	public float getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(int precio) {
+	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
 
