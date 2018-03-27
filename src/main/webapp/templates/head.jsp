@@ -7,6 +7,6 @@
 			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
 			crossorigin="anonymous">
 		<!-- Estilos locales -->
-		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="/nidea/css/styles.css">
 	</head>
 	

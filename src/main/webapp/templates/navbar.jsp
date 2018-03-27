@@ -2,7 +2,7 @@
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <a class="navbar-brand" href="/nidea">
-		<img class="logo-navbar" src="img/logo.png" alt="logo NIDEA">
+		<img class="logo-navbar" src="/nidea/img/logo.png" alt="logo NIDEA">
 	  </a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
@@ -17,7 +17,7 @@
 	        <a class="nav-link" href="calculadora">Calculadora</a>
 	      </li>
 	    </ul>
-	    <a class="btn btn-outline-primary" href="views/login.jsp">Login</a>
+	    <a class="btn btn-outline-primary" href="login">Login</a>
 	  </div>
 	</nav>
 	
