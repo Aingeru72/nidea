@@ -64,7 +64,7 @@ public class BackofficeFilter implements Filter {
 		System.out.println("URI: " + req.getRequestURI());
 		System.out.println("URL: " + req.getRequestURL());
 		System.out.println("Idioma: " + req.getLocale());
-		System.out.println("****************** Encabezados ****************************");
+		System.out.println("*********************** Encabezados *******************************");
 		System.out.println("Navegador: " + req.getHeader("user-agent"));
 		System.out.println("Host: " + req.getHeader("host"));
 		System.out.println("*******************************************************************");

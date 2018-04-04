@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.nidea.model.MaterialDAO;
 import com.ipartek.formacion.nidea.pojo.Alert;
 
 /**
@@ -53,21 +52,19 @@ public class LoginController extends HttpServlet {
 			if (USER.equalsIgnoreCase(usuario) && PASS.equals(password)) {
 
 				// enviar como atributo la lista de materiales
-				MaterialDAO dao = MaterialDAO.getInstance();
-				request.setAttribute("materiales", dao.getAll());
+				// MaterialDAO dao = MaterialDAO.getInstance();
+				// request.setAttribute("materiales", dao.getAll());
 
 				// guardar usuario en sesión
 				HttpSession session = request.getSession();
 				session.setAttribute("usuario", usuario);
 
 				/*
-				 * Tiempo de expiración de la sesión, también se puede configurar en web.xml. 
-				 * Un valor negativo, indica que nunca expira.
-				 * Configurandolo en web.xml, es global para todos los Controller
+				 * Tiempo de expiración de la sesión, también se puede configurar en web.xml. Un
+				 * valor negativo, indica que nunca expira. Configurandolo en web.xml, es global
+				 * para todos los Controller
 				 * 
-				 * <session-config> 
-				 * 	<session-timeout>-1</session-timeout> 
-				 * <session-config>
+				 * <session-config> <session-timeout>-1</session-timeout> <session-config>
 				 */
 				session.setMaxInactiveInterval(SESSION_EXPIRATION);
 
