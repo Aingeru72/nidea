@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.nidea.controller.MaterialesController"%>
+<%@page import="com.ipartek.formacion.nidea.controller.backoffice.MaterialesBOController"%>
 <%@page import="com.ipartek.formacion.nidea.model.MaterialDAO"%>
 <%@page import="com.ipartek.formacion.nidea.pojo.Material"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,15 +10,16 @@
 <h1>TABLA DE MATERIALES</h1>
 
 <form action="backoffice/materiales" method="get">
-
+	<input type="hidden" name="op" value="<%= MaterialesBOController.OP_BUSQUEDA %>">
 	<div class="input-group">
       <input type="search" class="form-control" name="search" placeholder="Buscar material por nombre" required autofocus tabindex="1">
       <span class="input-group-btn">
         <button class="btn btn-primary" type="submit">Buscar</button>
       </span>
     </div>
-
 </form>
+
+<a href="backoffice/materiales/material-detalle.jsp">Detalle</a>
 
 <table id="tbl-materiales" class="table table-striped table-bordered" style="width:100%">
 	<thead>
@@ -41,8 +44,12 @@
 			            <c:set var="clase" value="text-dark" />
 			         </c:otherwise>
 				</c:choose>
-					<td class="${clase}">${material.id}</td>
-					<td class="${clase}">${material.nombre}</td>
+					<td>${material.id}</td>
+					<td class="${clase}">
+						<a href="backoffice/materiales?id=${material.id}&op=<%=MaterialesBOController.OP_MOSTRAR_FORM%>&nombre=${material.nombre}&precio=${material.precio}">
+							${material.nombre}
+						</a>
+					</td>
 					<td class="${clase}">${material.precio}&euro;</td>
 			</tr>
 		</c:forEach>

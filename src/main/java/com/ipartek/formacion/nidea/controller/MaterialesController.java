@@ -22,7 +22,7 @@ public class MaterialesController extends HttpServlet {
 	private static final int SESSION_EXPIRATION = 60 * 1; // 1 minuto
 
 	private String view = "";
-	private Alert alert = new Alert();
+	private Alert alert = null;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

@@ -4,6 +4,6 @@
 
 <h1>Backoffice Dashboard</h1>
 
-<a href="backoffice/materiales">Materiales</a>
+<a href="backoffice/materiales?op=0">Materiales</a>
 
 <%@include file="/templates/footer.jsp" %>

@@ -18,7 +18,7 @@ import com.ipartek.formacion.nidea.pojo.Alert;
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final int SESSION_EXPIRATION = 60 * 1; // 1 minuto
+	private static final int SESSION_EXPIRATION = 60 * 60; // 60 minutos
 
 	private String view = "";
 	private Alert alert = new Alert();
@@ -69,7 +69,7 @@ public class LoginController extends HttpServlet {
 				session.setMaxInactiveInterval(SESSION_EXPIRATION);
 
 				view = "backoffice/index.jsp";
-				alert = new Alert("Ongi Etorri", Alert.TIPO_PRIMARY);
+				alert = null /* new Alert("Ongi Etorri", Alert.TIPO_PRIMARY) */;
 			} else {
 
 				view = "login.jsp";

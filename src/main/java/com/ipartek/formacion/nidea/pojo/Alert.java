@@ -6,6 +6,7 @@ public class Alert {
 	private String tipo;
 
 	// tipos de Alertas
+	public static final String TIPO_SUCCESS = "success";
 	public static final String TIPO_DANGER = "danger";
 	public static final String TIPO_WARNING = "warning";
 	public static final String TIPO_PRIMARY = "primary";
