@@ -110,13 +110,13 @@ public class MaterialesBOController extends HttpServlet {
 				mostraFormulario(request);
 				break;
 			case OP_ELIMINAR:
-				eliminar(request);
+				eliminar(request, materiales);
 				break;
 			case OP_BUSQUEDA:
 				buscar(request, materiales);
 				break;
 			case OP_GUARDAR:
-				guardar(request);
+				guardar(request, materiales);
 				break;
 			default:
 				listar(request, materiales);
@@ -145,7 +145,7 @@ public class MaterialesBOController extends HttpServlet {
 		}
 
 		search = (request.getParameter("search") != null) ? request.getParameter("search") : "";
-		System.out.println("Filtro de busqueda: " + search);
+		// System.out.println("Filtro de busqueda: " + search);
 
 		if (request.getParameter("id") != null) {
 			id = Integer.parseInt(request.getParameter("id"));
@@ -166,11 +166,31 @@ public class MaterialesBOController extends HttpServlet {
 
 	}
 
-	private void guardar(HttpServletRequest request) {
+	private void guardar(HttpServletRequest request, ArrayList<Material> materiales) {
 
 		cargarInfoMaterial(request);
-		alert = new Alert("Nuevo material guardado correctamente", Alert.TIPO_SUCCESS);
-		view = VIEW_FORM;
+		Material material = new Material();
+		material.setNombre(nombre);
+		material.setPrecio(precio);
+
+		if (id == -1) {
+			// Crear nuevo material
+			if (dao.save(material)) {
+				alert = new Alert("Nuevo material " + nombre + " guardado correctamente", Alert.TIPO_SUCCESS);
+			} else {
+				alert = new Alert("Error al crear el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+			}
+
+		} else {
+			// Modificar material
+			if (dao.save(material)) {
+				alert = new Alert("Material con id " + id + " modificado correctamente", Alert.TIPO_SUCCESS);
+			} else {
+				alert = new Alert("Error al modificar el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+			}
+		}
+
+		listar(request, materiales);
 
 	}
 
@@ -186,18 +206,33 @@ public class MaterialesBOController extends HttpServlet {
 		view = VIEW_INDEX;
 	}
 
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request, ArrayList<Material> materiales) {
 
 		cargarInfoMaterial(request);
-		alert = new Alert("El material ha sido eliminado correctamente", Alert.TIPO_DANGER);
-		view = VIEW_FORM;
+		if (dao.delete(id)) {
+			alert = new Alert("El material " + nombre + " con id " + id + " ha sido eliminado correctamente",
+					Alert.TIPO_DANGER);
+		} else {
+			alert = new Alert("Error al eliminar el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+		}
+
+		listar(request, materiales);
 
 	}
 
 	private void mostraFormulario(HttpServletRequest request) {
 
 		cargarInfoMaterial(request);
-		alert = new Alert("Detalle del material a consultar/modificar/eliminar", Alert.TIPO_PRIMARY);
+
+		if (id == -1) {
+			// Crear nuevo material
+			alert = new Alert("Nuevo material a crear", Alert.TIPO_SUCCESS);
+		} else {
+			// Modificar material
+			alert = new Alert("Detalle del material con id " + id + " a consultar/modificar/eliminar",
+					Alert.TIPO_PRIMARY);
+		}
+
 		view = VIEW_FORM;
 	}
 

@@ -14,15 +14,27 @@
 	margin-bottom: 10px;
 }
 
+#form-material-detalle .input-group-append {
+	margin-bottom: 10px;
+}
+
 #form-material-detalle label {
 	width:20%;
 }
-#form-material-detalle input {
-	width:70%;
+
+#input-id {
+	width: 100px;
+}
+	
+#input-nombre {
+	width: 300px;
+}
+
+#div-precio {
+	width: 150px;
 }
 
 #form-material-detalle button[type="submit"] {
-	display: flex;
     margin: auto;
     margin-bottom: 5px;
 }
@@ -40,7 +52,7 @@
 	    <label for="id"><b>ID</b></label>
 	    <input  type="number" 
 	    		class="form-control form-inline" 
-	    		id="id" 
+	    		id="input-id" 
 	    		name="id"
 	    		value="${material.id}" 
 	    		readonly 
@@ -48,11 +60,11 @@
     </div>
     
     <div class="form-inline">
-    	<label for="material"><b>Material</b></label>
+    	<label for="nombre"><b>Material</b></label>
     	<input  type="text" 
     			class="form-control form-inline" 
-    			id="material" 
-    			name="material" 
+    			id="input-nombre" 
+    			name="nombre" 
     			value="${material.nombre}"
     			placeholder="Nombre del material" 
     			required 
@@ -61,26 +73,54 @@
     
 	<div class="form-inline">
 	    <label for="precio"><b>Precio</b></label>
-	    <input  type="number" 
+	    <div class="input-group" id="div-precio">
+	    	<input  type="number" 
 	    		step="0.01" 
-	    		class="form-control form-inline" 
+	    		class="form-control form-inline input-group-prepend" 
 	    		id="precio" 
 	    		name="precio" 
 	    		value="${material.precio}"
 	    		required 
 	    		tabindex="3">
+		    <div class="input-group-append">
+		    	<span class="input-group-text">&euro;</span>
+		    </div>
+	    </div>
+	    
 	</div>
 	
-	<button type="submit" class="btn btn-success">
-		<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_GUARDAR%>">
-			A&ntilde;adir | Modificar
-		</a>
-	</button>
-	<button type="submit" class="btn btn-danger" onclick="confirmarBorrado(event)">
-		<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>">
-			Eliminar
-		</a>
-	</button>
+	<c:if test="${material.id == -1}">
+		<div class="form-group row">
+		    <div class="col-sm-12">
+		      <input type="hidden" name="op" value="<%=MaterialesBOController.OP_GUARDAR%>">
+		      <button type="submit" class="btn btn-primary btn-lg btn-block">
+<%-- 		      	<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_GUARDAR%>&id=${material.id}"> --%>
+					A&ntilde;adir
+<!-- 				</a> -->
+		      </button>
+		   </div>
+		</div>
+	</c:if>
+	<c:if test="${material.id != -1}">
+	  <div class="form-group row">
+	    <div class="col-sm-6">
+	      <input type="hidden" name="op" value="<%=MaterialesBOController.OP_GUARDAR%>">
+	      <button type="submit" class="btn btn-success btn-lg btn-block">
+<%-- 	      	<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_GUARDAR%>&id=${material.id}"> --%>
+				Modificar
+<!-- 			</a> -->
+	      </button>
+	    </div>
+	    <div class="col-sm-6">
+	      <input type="hidden" name="op" value="<%=MaterialesBOController.OP_ELIMINAR%>">
+	      <button type="submit" class="btn btn-danger btn-lg btn-block" onclick="confirmarBorrado(event)">
+			<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>&id=${material.id}">
+				Eliminar
+			</a>
+		  </button>
+	    </div>
+	  </div>
+	</c:if>
 </form>
 
 <script>

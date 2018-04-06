@@ -19,7 +19,7 @@
     </div>
 </form>
 
-<a href="backoffice/materiales/material-detalle.jsp">Detalle</a>
+<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_MOSTRAR_FORM%>&id=-1">Crear nuevo material</a>
 
 <table id="tbl-materiales" class="table table-striped table-bordered" style="width:100%">
 	<thead>

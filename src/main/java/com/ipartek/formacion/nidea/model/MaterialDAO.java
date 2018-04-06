@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import com.ipartek.formacion.nidea.pojo.Material;
 
-public class MaterialDAO {
+public class MaterialDAO implements Persistible<Material> {
 
 	private static MaterialDAO INSTANCE = null;
 
@@ -149,6 +149,101 @@ public class MaterialDAO {
 
 		return lista;
 
+	}
+
+	@Override
+	public Material getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		boolean resul = false;
+		Connection con = null;
+		PreparedStatement pst = null;
+		try {
+
+			con = ConnectionManager.getConnection();
+			String sql = "DELETE FROM `material` WHERE  `id`= ?;";
+
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+
+			int affetedRows = pst.executeUpdate();
+
+			if (affetedRows == 1) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+
+				if (pst != null) {
+					pst.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resul;
+	}
+
+	@Override
+	public boolean save(Material material) {
+
+		boolean resul = false;
+		Connection con = null;
+		PreparedStatement pst = null;
+
+		try {
+
+			con = ConnectionManager.getConnection();
+			if (material.getId() == -1) {
+				// Creamos nuevo material
+				String sql = "INSERT INTO `nidea`.`material` (`nombre`, `precio`) VALUES (?, ?);";
+				pst = con.prepareStatement(sql);
+				pst.setString(1, material.getNombre());
+				pst.setFloat(2, material.getPrecio());
+			} else {
+				// Modificamos un material existente
+				String sql = "UPDATE `nidea`.`material` SET `nombre`=?, `precio`=? WHERE  `id`=?;";
+				pst = con.prepareStatement(sql);
+				pst.setString(1, material.getNombre());
+				pst.setFloat(2, material.getPrecio());
+				pst.setFloat(3, material.getId());
+			}
+
+			int affetedRows = pst.executeUpdate();
+
+			if (affetedRows == 1) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+
+				if (pst != null) {
+					pst.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return resul;
 	}
 
 }

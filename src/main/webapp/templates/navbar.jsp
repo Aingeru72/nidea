@@ -15,10 +15,12 @@
      	<a class="btn btn-outline-primary" href="login">Login</a>
      </c:if>
      <c:if test="${!empty usuario}">
-     	<a href="backoffice/materiales?op=0">Materiales</a>
-<!--      	<a href="/backoffice/index.jsp">Backoffice</a> -->
-		<span class="badge badge-secondary">${usuario}</span>
-     	<a class="btn btn-outline-danger" href="logout">Logout</a>
+     	<nav class="my-2 my-md-0 mr-md-10">
+	     	<a href="backoffice/materiales?op=0">Materiales</a>
+	<!--      	<a href="/backoffice/index.jsp">Backoffice</a> -->
+			<span class="badge badge-secondary">${usuario}</span>
+	     	<a class="btn btn-outline-danger" href="logout">Logout</a>
+	     </nav>
      </c:if>
 </div>
    
