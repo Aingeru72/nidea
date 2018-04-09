@@ -1,5 +1,7 @@
 package com.ipartek.formacion.nidea.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface Persistible<P> {
@@ -39,5 +41,16 @@ public interface Persistible<P> {
 	 * @return TRUE si lo ha eliminado correctamente ELSE FALSE
 	 */
 	public boolean delete(int id);
+
+	/**
+	 * Nos mapea de un resultado de la BD a un Pojo
+	 * 
+	 * @param rs
+	 *            : ResultSet con 1 registro de la consulta
+	 * @return : SI EXISTE --> Pojo con el resultado del ResultSet OTHERWISE -->
+	 *         null
+	 * @throws SQLException
+	 */
+	public P mapper(ResultSet rs) throws SQLException;
 
 }

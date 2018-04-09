@@ -46,6 +46,10 @@
 
 </style>
 
+<!-- <div class="form-group row"> -->
+<!-- 	<a class="btn btn-outline-dark btn-lg" href="backoffice/materiales">Volver</a> -->
+<!-- </div> -->
+
 <form action="backoffice/materiales" method="post" id="form-material-detalle">
 	
 	<div class="form-inline">

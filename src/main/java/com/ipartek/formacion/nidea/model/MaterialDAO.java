@@ -58,10 +58,7 @@ public class MaterialDAO implements Persistible<Material> {
 
 			Material m = null;
 			while (rs.next()) {
-				m = new Material();
-				m.setId(rs.getInt("id"));
-				m.setNombre(rs.getString("nombre"));
-				m.setPrecio(rs.getFloat("precio"));
+				m = mapper(rs);
 				lista.add(m);
 			}
 
@@ -119,10 +116,7 @@ public class MaterialDAO implements Persistible<Material> {
 
 			Material m = null;
 			while (rs.next()) {
-				m = new Material();
-				m.setId(rs.getInt("id"));
-				m.setNombre(rs.getString("nombre"));
-				m.setPrecio(rs.getFloat("precio"));
+				m = mapper(rs);
 				lista.add(m);
 			}
 
@@ -153,8 +147,23 @@ public class MaterialDAO implements Persistible<Material> {
 
 	@Override
 	public Material getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Material material = null;
+		String sql = "SELECT `id`, `nombre`, `precio` FROM `material` WHERE `id` = ?;";
+
+		try (Connection con = ConnectionManager.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setInt(1, id);
+			try (ResultSet rs = pst.executeQuery()) {
+				while (rs.next()) {
+					material = mapper(rs);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return material;
 	}
 
 	@Override
@@ -244,6 +253,20 @@ public class MaterialDAO implements Persistible<Material> {
 		}
 
 		return resul;
+	}
+
+	@Override
+	public Material mapper(ResultSet rs) throws SQLException {
+		Material m = null;
+
+		if (rs != null) {
+			m = new Material();
+			m.setNombre(rs.getString("nombre"));
+			m.setId(rs.getInt("id"));
+			m.setPrecio(rs.getFloat("precio"));
+		}
+
+		return m;
 	}
 
 }
