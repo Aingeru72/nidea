@@ -208,48 +208,46 @@ public class MaterialDAO implements Persistible<Material> {
 	public boolean save(Material material) {
 
 		boolean resul = false;
-		Connection con = null;
-		PreparedStatement pst = null;
+		String sqlINSERT = "INSERT INTO `nidea`.`material` (`nombre`, `precio`) VALUES (?, ?);";
+		String sqlUPDATE = "UPDATE `nidea`.`material` SET `nombre`=?, `precio`=? WHERE  `id`=?;";
 
-		try {
+		try (Connection con = ConnectionManager.getConnection();) {
 
-			con = ConnectionManager.getConnection();
 			if (material.getId() == -1) {
-				// Creamos nuevo material
-				String sql = "INSERT INTO `nidea`.`material` (`nombre`, `precio`) VALUES (?, ?);";
-				pst = con.prepareStatement(sql);
-				pst.setString(1, material.getNombre());
-				pst.setFloat(2, material.getPrecio());
+				// Creamos un nuevo material
+				try (PreparedStatement pst = con.prepareStatement(sqlINSERT);) {
+					pst.setString(1, material.getNombre());
+					pst.setFloat(2, material.getPrecio());
+
+					int affetedRows = pst.executeUpdate();
+
+					if (affetedRows == 1) {
+						resul = true;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 			} else {
 				// Modificamos un material existente
-				String sql = "UPDATE `nidea`.`material` SET `nombre`=?, `precio`=? WHERE  `id`=?;";
-				pst = con.prepareStatement(sql);
-				pst.setString(1, material.getNombre());
-				pst.setFloat(2, material.getPrecio());
-				pst.setFloat(3, material.getId());
-			}
+				try (PreparedStatement pst = con.prepareStatement(sqlUPDATE);) {
+					pst.setString(1, material.getNombre());
+					pst.setFloat(2, material.getPrecio());
+					pst.setFloat(3, material.getId());
 
-			int affetedRows = pst.executeUpdate();
+					int affetedRows = pst.executeUpdate();
 
-			if (affetedRows == 1) {
-				resul = true;
+					if (affetedRows == 1) {
+						resul = true;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-
-				if (pst != null) {
-					pst.close();
-				}
-
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 
 		return resul;
