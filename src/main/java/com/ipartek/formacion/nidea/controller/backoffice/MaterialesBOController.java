@@ -170,6 +170,7 @@ public class MaterialesBOController extends HttpServlet {
 
 		cargarInfoMaterial(request);
 		Material material = new Material();
+		material.setId(id);
 		material.setNombre(nombre);
 		material.setPrecio(precio);
 
