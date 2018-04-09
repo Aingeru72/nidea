@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.nidea.model.MaterialDAO;
 import com.ipartek.formacion.nidea.pojo.Alert;
 import com.ipartek.formacion.nidea.pojo.Material;
+import com.mysql.jdbc.MysqlDataTruncation;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 /**
@@ -153,9 +154,17 @@ public class MaterialesBOController extends HttpServlet {
 		}
 		if (request.getParameter("nombre") != null) {
 			nombre = request.getParameter("nombre").trim();
+			if (nombre == "") {
+				op = OP_MOSTRAR_FORM;
+				alert = new Alert("Debe insertar un nombre al nuevo material", Alert.TIPO_WARNING);
+			}
 		}
 		if (request.getParameter("precio") != null) {
 			precio = Float.parseFloat(request.getParameter("precio"));
+			if (precio < 0) {
+				op = OP_MOSTRAR_FORM;
+				alert = new Alert("El precio no puede tener un valor negativo", Alert.TIPO_WARNING);
+			}
 		}
 	}
 
@@ -186,9 +195,13 @@ public class MaterialesBOController extends HttpServlet {
 					alert = new Alert("Error al crear el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
 				}
 				listar(request, materiales);
-			} catch (MySQLIntegrityConstraintViolationException e) {
-				// e.printStackTrace();
+			} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
+				// exc_col_dupl.printStackTrace();
 				alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
+				view = VIEW_FORM;
+			} catch (MysqlDataTruncation exc_tam) {
+				// exc_tam.printStackTrace();
+				alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
 				view = VIEW_FORM;
 			}
 
@@ -201,9 +214,13 @@ public class MaterialesBOController extends HttpServlet {
 					alert = new Alert("Error al modificar el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
 				}
 				listar(request, materiales);
-			} catch (MySQLIntegrityConstraintViolationException e) {
-				// e.printStackTrace();
-				alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
+			} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
+				// exc_col_dupl.printStackTrace();
+				alert = new Alert("Ese material ya existe", Alert.TIPO_WARNING);
+				view = VIEW_FORM;
+			} catch (MysqlDataTruncation exc_tam) {
+				// exc_tam.printStackTrace();
+				alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
 				view = VIEW_FORM;
 			}
 		}
@@ -240,16 +257,19 @@ public class MaterialesBOController extends HttpServlet {
 
 		cargarInfoMaterial(request);
 
-		if (id == -1) {
-			// Crear nuevo material
-			alert = new Alert("Nuevo material a crear", Alert.TIPO_SUCCESS);
-		} else {
-			// Modificar material
-			alert = new Alert("Detalle del material con id " + id + " a consultar/modificar/eliminar",
-					Alert.TIPO_PRIMARY);
-		}
+		if (nombre != "" && precio >= 0 && id != -1) {
+			if (id == -1) {
+				// Crear nuevo material
+				alert = new Alert("Nuevo material a crear", Alert.TIPO_SUCCESS);
+			} else {
+				// Modificar material
+				alert = new Alert("Detalle del material con id " + id + " a consultar/modificar/eliminar",
+						Alert.TIPO_PRIMARY);
+			}
 
+		}
 		view = VIEW_FORM;
+
 	}
 
 	private void cargarInfoMaterial(HttpServletRequest request) {

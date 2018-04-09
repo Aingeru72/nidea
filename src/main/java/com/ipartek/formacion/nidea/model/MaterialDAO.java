@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.nidea.pojo.Material;
+import com.mysql.jdbc.MysqlDataTruncation;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class MaterialDAO implements Persistible<Material> {
@@ -145,7 +146,7 @@ public class MaterialDAO implements Persistible<Material> {
 	}
 
 	@Override
-	public boolean save(Material material) throws MySQLIntegrityConstraintViolationException {
+	public boolean save(Material material) throws MySQLIntegrityConstraintViolationException, MysqlDataTruncation {
 
 		boolean resul = false;
 		String sql = "";
@@ -185,8 +186,12 @@ public class MaterialDAO implements Persistible<Material> {
 
 		} catch (MySQLIntegrityConstraintViolationException mysql_exc) {
 			// mysql_exc.printStackTrace();
-			System.out.println("MySQLIntegrityConstraintViolationException");
+			System.out.println("MySQLIntegrityConstraintViolationException por columna repetida");
 			throw mysql_exc;
+		} catch (MysqlDataTruncation mysql_data_trunc) {
+			// mysql_data_trunc.printStackTrace();
+			System.out.println("MysqlDataTruncation tamaño sobrepasado en columna");
+			throw mysql_data_trunc;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

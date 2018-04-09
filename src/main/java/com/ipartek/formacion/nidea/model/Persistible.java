@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.MysqlDataTruncation;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public interface Persistible<P> {
@@ -33,8 +34,9 @@ public interface Persistible<P> {
 	 *            Objeto a guardar o modificar
 	 * @return TRUE si lo ha guardado/modificado correctamente ELSE FALSE
 	 * @throws MySQLIntegrityConstraintViolationException
+	 * @throws MysqlDataTruncation
 	 */
-	public boolean save(P pojo) throws MySQLIntegrityConstraintViolationException;
+	public boolean save(P pojo) throws MySQLIntegrityConstraintViolationException, MysqlDataTruncation;
 
 	/**
 	 * Eliminamos un registro por su ID

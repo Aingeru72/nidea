@@ -72,6 +72,7 @@
     			value="${material.nombre}"
     			placeholder="Nombre del material" 
     			required 
+    			maxlength="45"
     			tabindex="1">
     </div>
     
