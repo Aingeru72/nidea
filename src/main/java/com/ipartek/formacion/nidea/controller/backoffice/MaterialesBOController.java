@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.nidea.model.MaterialDAO;
 import com.ipartek.formacion.nidea.pojo.Alert;
 import com.ipartek.formacion.nidea.pojo.Material;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 /**
  * Servlet implementation class MaterialesController
@@ -151,7 +152,7 @@ public class MaterialesBOController extends HttpServlet {
 			id = Integer.parseInt(request.getParameter("id"));
 		}
 		if (request.getParameter("nombre") != null) {
-			nombre = request.getParameter("nombre");
+			nombre = request.getParameter("nombre").trim();
 		}
 		if (request.getParameter("precio") != null) {
 			precio = Float.parseFloat(request.getParameter("precio"));
@@ -176,22 +177,36 @@ public class MaterialesBOController extends HttpServlet {
 
 		if (id == -1) {
 			// Crear nuevo material
-			if (dao.save(material)) {
-				alert = new Alert("Nuevo material " + nombre + " guardado correctamente", Alert.TIPO_SUCCESS);
-			} else {
-				alert = new Alert("Error al crear el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+			try {
+				if (dao.save(material)) {
+					alert = new Alert(
+							"Nuevo material " + nombre + " guardado correctamente (con id = " + material.getId() + ")",
+							Alert.TIPO_SUCCESS);
+				} else {
+					alert = new Alert("Error al crear el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+				}
+				listar(request, materiales);
+			} catch (MySQLIntegrityConstraintViolationException e) {
+				// e.printStackTrace();
+				alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
+				view = VIEW_FORM;
 			}
 
 		} else {
 			// Modificar material
-			if (dao.save(material)) {
-				alert = new Alert("Material con id " + id + " modificado correctamente", Alert.TIPO_SUCCESS);
-			} else {
-				alert = new Alert("Error al modificar el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+			try {
+				if (dao.save(material)) {
+					alert = new Alert("Material con id " + id + " modificado correctamente", Alert.TIPO_SUCCESS);
+				} else {
+					alert = new Alert("Error al modificar el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+				}
+				listar(request, materiales);
+			} catch (MySQLIntegrityConstraintViolationException e) {
+				// e.printStackTrace();
+				alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
+				view = VIEW_FORM;
 			}
 		}
-
-		listar(request, materiales);
 
 	}
 

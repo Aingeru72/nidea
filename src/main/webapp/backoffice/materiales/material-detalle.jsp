@@ -60,8 +60,7 @@
 	    		id="input-id" 
 	    		name="id"
 	    		value="${material.id}" 
-	    		readonly 
-	    		tabindex="1">
+	    		readonly>
     </div>
     
     <div class="form-inline">
@@ -73,7 +72,7 @@
     			value="${material.nombre}"
     			placeholder="Nombre del material" 
     			required 
-    			tabindex="2">
+    			tabindex="1">
     </div>
     
 	<div class="form-inline">
@@ -87,7 +86,7 @@
 	    		value="${material.precio}"
 	    		min = 0
 	    		required 
-	    		tabindex="3">
+	    		tabindex="2">
 		    <div class="input-group-append">
 		    	<span class="input-group-text">&euro;</span>
 		    </div>

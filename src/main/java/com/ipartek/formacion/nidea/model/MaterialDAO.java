@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.nidea.pojo.Material;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class MaterialDAO implements Persistible<Material> {
 
@@ -144,7 +145,7 @@ public class MaterialDAO implements Persistible<Material> {
 	}
 
 	@Override
-	public boolean save(Material material) {
+	public boolean save(Material material) throws MySQLIntegrityConstraintViolationException {
 
 		boolean resul = false;
 		String sql = "";
@@ -155,7 +156,8 @@ public class MaterialDAO implements Persistible<Material> {
 			sql = "UPDATE `nidea`.`material` SET `nombre`=?, `precio`=? WHERE  `id`=?;";
 		}
 
-		try (Connection con = ConnectionManager.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
 
 			if (material.getId() == -1) {
 				// Creamos un nuevo material
@@ -171,9 +173,20 @@ public class MaterialDAO implements Persistible<Material> {
 			int affetedRows = pst.executeUpdate();
 
 			if (affetedRows == 1) {
-				resul = true;
+				try (ResultSet rs = pst.getGeneratedKeys()) {
+					while (rs.next()) {
+						material.setId(rs.getInt(1));
+						resul = true;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 
+		} catch (MySQLIntegrityConstraintViolationException mysql_exc) {
+			// mysql_exc.printStackTrace();
+			System.out.println("MySQLIntegrityConstraintViolationException");
+			throw mysql_exc;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
