@@ -7,6 +7,19 @@
 <%@include file="/templates/navbar.jsp" %>
 <%@include file="/templates/alert.jsp" %>
 
+<style>
+#btn-nuevo-material {
+	color: green;
+	width: 30px;
+    height: auto;
+    margin: 10px;
+}
+#div-nuevo-material {
+	display: flex;
+    align-items: center;
+}
+</style>
+
 <h1>TABLA DE MATERIALES</h1>
 
 <form action="backoffice/materiales" method="get">
@@ -19,7 +32,11 @@
     </div>
 </form>
 
-<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_MOSTRAR_FORM%>&id=-1">Crear nuevo material</a>
+<!-- Botón añadir nuevo material -->
+<div id="div-nuevo-material">
+	<i id="btn-nuevo-material" class="fas fa-plus-circle"></i>
+	<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_MOSTRAR_FORM%>&id=-1">Nuevo material</a>
+</div>
 
 <table id="tbl-materiales" class="table table-striped table-bordered" style="width:100%">
 	<thead>
