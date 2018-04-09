@@ -169,14 +169,11 @@ public class MaterialDAO implements Persistible<Material> {
 	@Override
 	public boolean delete(int id) {
 		boolean resul = false;
-		Connection con = null;
-		PreparedStatement pst = null;
-		try {
+		String sqlDELETE = "DELETE FROM `material` WHERE  `id`= ?;";
 
-			con = ConnectionManager.getConnection();
-			String sql = "DELETE FROM `material` WHERE  `id`= ?;";
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(sqlDELETE);) {
 
-			pst = con.prepareStatement(sql);
 			pst.setInt(1, id);
 
 			int affetedRows = pst.executeUpdate();
@@ -187,20 +184,8 @@ public class MaterialDAO implements Persistible<Material> {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-
-				if (pst != null) {
-					pst.close();
-				}
-
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
+
 		return resul;
 	}
 
@@ -208,42 +193,31 @@ public class MaterialDAO implements Persistible<Material> {
 	public boolean save(Material material) {
 
 		boolean resul = false;
-		String sqlINSERT = "INSERT INTO `nidea`.`material` (`nombre`, `precio`) VALUES (?, ?);";
-		String sqlUPDATE = "UPDATE `nidea`.`material` SET `nombre`=?, `precio`=? WHERE  `id`=?;";
+		String sql = "";
 
-		try (Connection con = ConnectionManager.getConnection();) {
+		if (material.getId() == -1) {
+			sql = "INSERT INTO `nidea`.`material` (`nombre`, `precio`) VALUES (?, ?);";
+		} else {
+			sql = "UPDATE `nidea`.`material` SET `nombre`=?, `precio`=? WHERE  `id`=?;";
+		}
+
+		try (Connection con = ConnectionManager.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 
 			if (material.getId() == -1) {
 				// Creamos un nuevo material
-				try (PreparedStatement pst = con.prepareStatement(sqlINSERT);) {
-					pst.setString(1, material.getNombre());
-					pst.setFloat(2, material.getPrecio());
-
-					int affetedRows = pst.executeUpdate();
-
-					if (affetedRows == 1) {
-						resul = true;
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
+				pst.setString(1, material.getNombre());
+				pst.setFloat(2, material.getPrecio());
 			} else {
 				// Modificamos un material existente
-				try (PreparedStatement pst = con.prepareStatement(sqlUPDATE);) {
-					pst.setString(1, material.getNombre());
-					pst.setFloat(2, material.getPrecio());
-					pst.setFloat(3, material.getId());
+				pst.setString(1, material.getNombre());
+				pst.setFloat(2, material.getPrecio());
+				pst.setFloat(3, material.getId());
+			}
 
-					int affetedRows = pst.executeUpdate();
+			int affetedRows = pst.executeUpdate();
 
-					if (affetedRows == 1) {
-						resul = true;
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
+			if (affetedRows == 1) {
+				resul = true;
 			}
 
 		} catch (Exception e) {

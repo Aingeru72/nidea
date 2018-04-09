@@ -84,6 +84,7 @@
 	    		id="precio" 
 	    		name="precio" 
 	    		value="${material.precio}"
+	    		min = 0
 	    		required 
 	    		tabindex="3">
 		    <div class="input-group-append">
@@ -117,11 +118,9 @@
 	    </div>
 	    <div class="col-sm-6">
 	      <input type="hidden" name="op" value="<%=MaterialesBOController.OP_ELIMINAR%>">
-	      <button type="submit" class="btn btn-danger btn-lg btn-block" onclick="confirmarBorrado(event)">
-			<a href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>&id=${material.id}">
+			<a class="btn btn-danger btn-lg btn-block" onclick="confirmarBorrado(event)" href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>&id=${material.id}">
 				Eliminar
 			</a>
-		  </button>
 	    </div>
 	  </div>
 	</c:if>
