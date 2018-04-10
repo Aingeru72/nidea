@@ -160,10 +160,15 @@ public class MaterialesBOController extends HttpServlet {
 			}
 		}
 		if (request.getParameter("precio") != null) {
-			precio = Float.parseFloat(request.getParameter("precio"));
-			if (precio < 0) {
+			if ("".equals(request.getParameter("precio"))) {
 				op = OP_MOSTRAR_FORM;
-				alert = new Alert("El precio no puede tener un valor negativo", Alert.TIPO_WARNING);
+				alert = new Alert("Debe rellenar el campo de precio", Alert.TIPO_WARNING);
+			} else {
+				precio = Float.parseFloat(request.getParameter("precio"));
+				if (precio < 0) {
+					op = OP_MOSTRAR_FORM;
+					alert = new Alert("El precio no puede tener un valor negativo", Alert.TIPO_WARNING);
+				}
 			}
 		}
 	}
@@ -178,53 +183,74 @@ public class MaterialesBOController extends HttpServlet {
 
 	private void guardar(HttpServletRequest request, ArrayList<Material> materiales) {
 
-		cargarInfoMaterial(request);
-		Material material = new Material();
-		material.setId(id);
-		material.setNombre(nombre);
-		material.setPrecio(precio);
+		if (validarCampos()) {
 
-		if (id == -1) {
-			// Crear nuevo material
-			try {
-				if (dao.save(material)) {
-					alert = new Alert(
-							"Nuevo material " + nombre + " guardado correctamente (con id = " + material.getId() + ")",
-							Alert.TIPO_SUCCESS);
-				} else {
-					alert = new Alert("Error al crear el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+			cargarInfoMaterial(request);
+			Material material = new Material();
+			material.setId(id);
+			material.setNombre(nombre);
+			material.setPrecio(precio);
+
+			if (id == -1) {
+				// Crear nuevo material
+				try {
+					if (dao.save(material)) {
+						alert = new Alert("Nuevo material " + nombre + " guardado correctamente (con id = "
+								+ material.getId() + ")", Alert.TIPO_SUCCESS);
+					} else {
+						alert = new Alert("Error al crear el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
+					}
+					listar(request, materiales);
+				} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
+					// exc_col_dupl.printStackTrace();
+					alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
+					view = VIEW_FORM;
+				} catch (MysqlDataTruncation exc_tam) {
+					// exc_tam.printStackTrace();
+					alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
+					view = VIEW_FORM;
 				}
-				listar(request, materiales);
-			} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
-				// exc_col_dupl.printStackTrace();
-				alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
-				view = VIEW_FORM;
-			} catch (MysqlDataTruncation exc_tam) {
-				// exc_tam.printStackTrace();
-				alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
-				view = VIEW_FORM;
-			}
 
+			} else {
+				// Modificar material
+				try {
+					if (dao.save(material)) {
+						alert = new Alert("Material con id " + id + " modificado correctamente", Alert.TIPO_SUCCESS);
+					} else {
+						alert = new Alert("Error al modificar el material " + nombre + " con id " + id,
+								Alert.TIPO_WARNING);
+					}
+					listar(request, materiales);
+				} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
+					// exc_col_dupl.printStackTrace();
+					alert = new Alert("Ese material ya existe", Alert.TIPO_WARNING);
+					view = VIEW_FORM;
+				} catch (MysqlDataTruncation exc_tam) {
+					// exc_tam.printStackTrace();
+					alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
+					view = VIEW_FORM;
+				}
+			}
 		} else {
-			// Modificar material
-			try {
-				if (dao.save(material)) {
-					alert = new Alert("Material con id " + id + " modificado correctamente", Alert.TIPO_SUCCESS);
-				} else {
-					alert = new Alert("Error al modificar el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
-				}
-				listar(request, materiales);
-			} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
-				// exc_col_dupl.printStackTrace();
-				alert = new Alert("Ese material ya existe", Alert.TIPO_WARNING);
-				view = VIEW_FORM;
-			} catch (MysqlDataTruncation exc_tam) {
-				// exc_tam.printStackTrace();
-				alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
-				view = VIEW_FORM;
-			}
+			view = VIEW_FORM;
+			alert = new Alert("Rellene todos los campos del formulario", Alert.TIPO_WARNING);
+		}
+	}
+
+	private boolean validarCampos() {
+		boolean valido = true;
+
+		if ("".equals(id)) {
+			valido = false;
+		}
+		if ("".equals(nombre.trim())) {
+			valido = false;
+		}
+		if ("".equals(precio)) {
+			valido = false;
 		}
 
+		return valido;
 	}
 
 	private void buscar(HttpServletRequest request, ArrayList<Material> materiales) {
