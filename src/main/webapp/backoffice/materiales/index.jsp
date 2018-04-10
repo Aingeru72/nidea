@@ -25,7 +25,7 @@
 <form action="backoffice/materiales" method="get">
 	<input type="hidden" name="op" value="<%= MaterialesBOController.OP_BUSQUEDA %>">
 	<div class="input-group">
-      <input type="search" class="form-control" name="search" placeholder="Buscar material por nombre" required autofocus tabindex="1">
+      <input type="search" class="form-control" name="search" placeholder="Buscar material por nombre" autofocus tabindex="1">
       <span class="input-group-btn">
         <button class="btn btn-primary" type="submit">Buscar</button>
       </span>

@@ -140,11 +140,11 @@
         </button>
       </div>
       <div class="modal-body">
-        ¿Está seguro de que desea eliminar el material <b>${material.nombre}</b>?
+        ¿Esta seguro de que desea eliminar el material <b>${material.nombre}</b>?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <a type="button" class="btn btn-danger" href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>&id=${material.id}">Eliminar</a>
+        <a class="btn btn-danger" href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>&id=${material.id}">Eliminar</a>
       </div>
     </div>
   </div>
