@@ -204,11 +204,15 @@ public class MaterialesBOController extends HttpServlet {
 						listar(request, materiales);
 					} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
 						// exc_col_dupl.printStackTrace();
-						alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
-						view = VIEW_FORM;
+						alert = new Alert("Ese material ya existe", Alert.TIPO_WARNING);
 					} catch (MysqlDataTruncation exc_tam) {
 						// exc_tam.printStackTrace();
 						alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
+
+					} finally {
+						material.setId(id);
+						material.setPrecio(precio);
+						request.setAttribute("material", material);
 						view = VIEW_FORM;
 					}
 
@@ -226,18 +230,17 @@ public class MaterialesBOController extends HttpServlet {
 					} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
 						// exc_col_dupl.printStackTrace();
 						alert = new Alert("Ese material ya existe", Alert.TIPO_WARNING);
-						view = VIEW_FORM;
 					} catch (MysqlDataTruncation exc_tam) {
 						// exc_tam.printStackTrace();
 						alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
+					} finally {
+						material.setId(id);
+						material.setPrecio(precio);
+						request.setAttribute("material", material);
 						view = VIEW_FORM;
 					}
 				}
 			} else {
-				material.setId(id);
-				material.setNombre(nombre);
-				material.setPrecio(precio);
-				request.setAttribute("material", material);
 				view = VIEW_FORM;
 				alert = new Alert("Rellene todos los campos del formulario", Alert.TIPO_WARNING);
 			}
@@ -324,8 +327,9 @@ public class MaterialesBOController extends HttpServlet {
 					precio = Float.parseFloat(request.getParameter("precio"));
 					material.setPrecio(precio);
 				}
+				request.setAttribute("material", material);
 			}
-			request.setAttribute("material", material);
+
 		} catch (Exception e) {
 			throw e;
 		}

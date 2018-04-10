@@ -51,7 +51,7 @@
 	
 </div>
 
-<form action="backoffice/materiales" method="post" id="form-material-detalle">
+<form action="backoffice/materiales" method="post" id="form-material-detalle" novalidate>
 	
 	<div class="form-inline">
 	    <label for="id"><b>ID</b></label>
@@ -130,11 +130,11 @@
 </form>
 
 <!-- Modal de confirmación de borrado -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Eliminar material</h5>
+        <h5 class="modal-title">Eliminar material</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
