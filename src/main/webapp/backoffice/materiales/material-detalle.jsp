@@ -73,6 +73,7 @@
     			placeholder="Nombre del material" 
     			required 
     			maxlength="45"
+    			autofocus
     			tabindex="1">
     </div>
     
@@ -119,7 +120,8 @@
 	    </div>
 	    <div class="col-sm-6">
 	      <input type="hidden" name="op" value="<%=MaterialesBOController.OP_ELIMINAR%>">
-			<a class="btn btn-danger btn-lg btn-block" onclick="confirmarBorrado(event)" href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>&id=${material.id}">
+			<a class="btn btn-danger btn-lg btn-block" href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>&id=${material.id}"
+				data-toggle="modal" data-target="#deleteModal">
 				Eliminar
 			</a>
 	    </div>
@@ -127,13 +129,25 @@
 	</c:if>
 </form>
 
-<script>
-	function confirmarBorrado(e) {
-		if (!confirm("Esta seguro de que desea eliminar el material?")) {
-			e.preventDefault();
-		}
-	}
-</script>
-
+<!-- Modal de confirmación de borrado -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar material</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Está seguro de que desea eliminar el material <b>${material.nombre}</b>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <a type="button" class="btn btn-danger" href="backoffice/materiales?op=<%=MaterialesBOController.OP_ELIMINAR%>&id=${material.id}">Eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%@include file="/templates/footer.jsp" %>

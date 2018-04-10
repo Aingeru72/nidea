@@ -75,12 +75,13 @@ public class MaterialDAO implements Persistible<Material> {
 	public ArrayList<Material> filterMateriales(String searchText) {
 
 		ArrayList<Material> lista = new ArrayList<Material>();
-		String sql = "SELECT id,nombre,precio FROM material WHERE nombre LIKE '%" + searchText
-				+ "%' ORDER BY id DESC LIMIT 500;";
+		String sql = "SELECT id,nombre,precio FROM material WHERE nombre LIKE ? ORDER BY id DESC LIMIT 500;";
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pst = con.prepareStatement(sql);
 				ResultSet rs = pst.executeQuery();) {
+
+			pst.setString(1, "%" + searchText + "%");
 
 			// Class.forName("com.mysql.jdbc.Driver");
 			// final String URL =

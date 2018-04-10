@@ -164,7 +164,7 @@ public class MaterialesBOController extends HttpServlet {
 				op = OP_MOSTRAR_FORM;
 				alert = new Alert("Debe rellenar el campo de precio", Alert.TIPO_WARNING);
 			} else {
-				precio = Float.parseFloat(request.getParameter("precio"));
+				// precio = Float.parseFloat(request.getParameter("precio"));
 				if (precio < 0) {
 					op = OP_MOSTRAR_FORM;
 					alert = new Alert("El precio no puede tener un valor negativo", Alert.TIPO_WARNING);
@@ -182,58 +182,73 @@ public class MaterialesBOController extends HttpServlet {
 	}
 
 	private void guardar(HttpServletRequest request, ArrayList<Material> materiales) {
+		Material material = new Material();
+		try {
+			if (validarCampos()) {
 
-		if (validarCampos()) {
+				cargarInfoMaterial(request);
 
-			cargarInfoMaterial(request);
-			Material material = new Material();
+				material.setId(id);
+				material.setNombre(nombre);
+
+				if (id == -1) {
+					// Crear nuevo material
+					try {
+						if (dao.save(material)) {
+							alert = new Alert("Nuevo material " + nombre + " guardado correctamente (con id = "
+									+ material.getId() + ")", Alert.TIPO_SUCCESS);
+						} else {
+							alert = new Alert("Error al crear el material " + nombre + " con id " + id,
+									Alert.TIPO_WARNING);
+						}
+						listar(request, materiales);
+					} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
+						// exc_col_dupl.printStackTrace();
+						alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
+						view = VIEW_FORM;
+					} catch (MysqlDataTruncation exc_tam) {
+						// exc_tam.printStackTrace();
+						alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
+						view = VIEW_FORM;
+					}
+
+				} else {
+					// Modificar material
+					try {
+						if (dao.save(material)) {
+							alert = new Alert("Material con id " + id + " modificado correctamente",
+									Alert.TIPO_SUCCESS);
+						} else {
+							alert = new Alert("Error al modificar el material " + nombre + " con id " + id,
+									Alert.TIPO_WARNING);
+						}
+						listar(request, materiales);
+					} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
+						// exc_col_dupl.printStackTrace();
+						alert = new Alert("Ese material ya existe", Alert.TIPO_WARNING);
+						view = VIEW_FORM;
+					} catch (MysqlDataTruncation exc_tam) {
+						// exc_tam.printStackTrace();
+						alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
+						view = VIEW_FORM;
+					}
+				}
+			} else {
+				material.setId(id);
+				material.setNombre(nombre);
+				material.setPrecio(precio);
+				request.setAttribute("material", material);
+				view = VIEW_FORM;
+				alert = new Alert("Rellene todos los campos del formulario", Alert.TIPO_WARNING);
+			}
+
+		} catch (NumberFormatException nfe) {
+			// nfe.printStackTrace();
 			material.setId(id);
 			material.setNombre(nombre);
-			material.setPrecio(precio);
-
-			if (id == -1) {
-				// Crear nuevo material
-				try {
-					if (dao.save(material)) {
-						alert = new Alert("Nuevo material " + nombre + " guardado correctamente (con id = "
-								+ material.getId() + ")", Alert.TIPO_SUCCESS);
-					} else {
-						alert = new Alert("Error al crear el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
-					}
-					listar(request, materiales);
-				} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
-					// exc_col_dupl.printStackTrace();
-					alert = new Alert("Ese material ya existe", Alert.TIPO_DANGER);
-					view = VIEW_FORM;
-				} catch (MysqlDataTruncation exc_tam) {
-					// exc_tam.printStackTrace();
-					alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
-					view = VIEW_FORM;
-				}
-
-			} else {
-				// Modificar material
-				try {
-					if (dao.save(material)) {
-						alert = new Alert("Material con id " + id + " modificado correctamente", Alert.TIPO_SUCCESS);
-					} else {
-						alert = new Alert("Error al modificar el material " + nombre + " con id " + id,
-								Alert.TIPO_WARNING);
-					}
-					listar(request, materiales);
-				} catch (MySQLIntegrityConstraintViolationException exc_col_dupl) {
-					// exc_col_dupl.printStackTrace();
-					alert = new Alert("Ese material ya existe", Alert.TIPO_WARNING);
-					view = VIEW_FORM;
-				} catch (MysqlDataTruncation exc_tam) {
-					// exc_tam.printStackTrace();
-					alert = new Alert("Nombre demasiado grande", Alert.TIPO_WARNING);
-					view = VIEW_FORM;
-				}
-			}
-		} else {
+			request.setAttribute("material", material);
 			view = VIEW_FORM;
-			alert = new Alert("Rellene todos los campos del formulario", Alert.TIPO_WARNING);
+			alert = new Alert("El formato del precio no es correcto", Alert.TIPO_WARNING);
 		}
 	}
 
@@ -246,7 +261,7 @@ public class MaterialesBOController extends HttpServlet {
 		if ("".equals(nombre.trim())) {
 			valido = false;
 		}
-		if ("".equals(precio)) {
+		if ("".equals(precio) || Float.isNaN(precio)) {
 			valido = false;
 		}
 
@@ -270,7 +285,7 @@ public class MaterialesBOController extends HttpServlet {
 		cargarInfoMaterial(request);
 		if (dao.delete(id)) {
 			alert = new Alert("El material " + nombre + " con id " + id + " ha sido eliminado correctamente",
-					Alert.TIPO_DANGER);
+					Alert.TIPO_SUCCESS);
 		} else {
 			alert = new Alert("Error al eliminar el material " + nombre + " con id " + id, Alert.TIPO_WARNING);
 		}
@@ -300,13 +315,20 @@ public class MaterialesBOController extends HttpServlet {
 
 	private void cargarInfoMaterial(HttpServletRequest request) {
 
-		Material material = new Material();
-		if (id > -1) {
-			material.setId(id);
-			material.setNombre(nombre);
-			material.setPrecio(precio);
+		try {
+			Material material = new Material();
+			if (id > -1) {
+				material.setId(id);
+				material.setNombre(nombre);
+				if (request.getParameter("precio") != null) {
+					precio = Float.parseFloat(request.getParameter("precio"));
+					material.setPrecio(precio);
+				}
+			}
+			request.setAttribute("material", material);
+		} catch (Exception e) {
+			throw e;
 		}
-		request.setAttribute("material", material);
 
 	}
 
