@@ -18,8 +18,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.ipartek.formacion.nidea.pojo.Bebida;
-
 public class BebidaTest {
 
 	static ValidatorFactory factory;
@@ -57,7 +55,7 @@ public class BebidaTest {
 
 			Set<ConstraintViolation<Bebida>> violations = validator.validate(bebida);
 
-			assertTrue(violations.size() == 2);
+			assertTrue(violations.size() == 3);
 
 		} catch (Exception e) {
 			e.printStackTrace();
