@@ -9,11 +9,7 @@
 	Mesa mesa = (Mesa) request.getAttribute("mesa");
 	if (mesa == null) {
 		mesa = new Mesa();
-<<<<<<< HEAD
 		mesa.getMaterial().setId(-1);
-=======
-		mesa.getMaterial().setId(0);
->>>>>>> branch 'master' of https://github.com/Aingeru72/nidea.git
 	}
 	ArrayList<Material> materiales = (ArrayList<Material>)request.getAttribute("materiales");
 	
