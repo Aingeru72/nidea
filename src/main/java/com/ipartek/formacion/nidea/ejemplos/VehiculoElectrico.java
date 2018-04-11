@@ -1,6 +1,6 @@
 package com.ipartek.formacion.nidea.ejemplos;
 
-public class VehiculoElectrico extends Vehiculo {
+public class VehiculoElectrico extends Vehiculo implements Ordenable {
 
 	// Atributos
 	private float potencia; // en KW
@@ -40,6 +40,11 @@ public class VehiculoElectrico extends Vehiculo {
 	@Override
 	public void encenderLuces() {
 		System.out.println("Luces ON");
+	}
+
+	@Override
+	public int getValor() {
+		return this.getPuertas();
 	}
 
 }

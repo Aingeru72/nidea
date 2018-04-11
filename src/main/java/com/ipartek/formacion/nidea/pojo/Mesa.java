@@ -1,18 +1,20 @@
 //1.definicion package
 package com.ipartek.formacion.nidea.pojo;
 
+import com.ipartek.formacion.nidea.ejemplos.Ordenable;
+
 //2. Imports => ahora mismo no tenemos ninguno
 
 //3. definicion Clase
 /**
  * 
- * @author ur00
+ * @author Aingeru Sanchez
  *
  */
-public class Mesa implements Cloneable {
+public class Mesa implements Cloneable, Ordenable {
 
 	/**
-	 * precio en €
+	 * precio en ï¿½
 	 */
 	public static final int PRECIO_PATA = 1;
 	public static final int PRECIO_M2 = 5;
@@ -112,7 +114,7 @@ public class Mesa implements Cloneable {
 	 * Calculamos el precio de la mesa en funcion de los materiales usados.
 	 * 
 	 * @see consultar todas las constantes definidas para los precios
-	 * @return float precio en €
+	 * @return float precio en ï¿½
 	 */
 	public float getPrecio() {
 
@@ -166,6 +168,11 @@ public class Mesa implements Cloneable {
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
+	}
+
+	@Override
+	public int getValor() {
+		return this.getNumeroPatas();
 	}
 
 }
