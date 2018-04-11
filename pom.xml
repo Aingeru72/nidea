@@ -41,6 +41,19 @@
 			<artifactId>jstl</artifactId>
 			<version>${javax.servlet.jstl.version}</version>
 		</dependency>
+		
+		<!-- Validaciones -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.2.4.Final</version>
+		</dependency>
 
 		<!-- libreria MySQL -->
 		<dependency>
@@ -49,7 +62,6 @@
 			<version>5.1.6</version>
 		</dependency>
 
-
 		<!-- Testing -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -57,9 +69,19 @@
 			<version>${junit.version}</version>
 			<scope>test</scope> <!-- solo se usa para Test, cuando se crea el projecto no se usa esta libreria -->
 		</dependency>
-
-
-
+		<!-- Validaciones Test -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>2.2.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>2.2.4</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 

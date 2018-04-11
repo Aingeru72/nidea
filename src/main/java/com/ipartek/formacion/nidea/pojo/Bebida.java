@@ -1,19 +1,36 @@
 package com.ipartek.formacion.nidea.pojo;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Bebida {
 
 	private int id;
+
+	@NotNull
+	@NotBlank
+	@Size(min = 3, max = 45)
 	private String nombre;
-	private float precio;
-	private float graduacion;
+
+	@DecimalMin("0.01")
+	private double precio;
 
 	// Constructor de Bebida
-	public Bebida(int id, String nombre, float precio, float graduacion) {
+	public Bebida() {
 		super();
+		this.id = -1;
+		this.nombre = "";
+		this.precio = 0;
+	}
+
+	public Bebida(int id, String nombre, double precio) {
+		this();
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
-		this.graduacion = graduacion;
 	}
 
 	public int getId() {
@@ -32,25 +49,17 @@ public class Bebida {
 		this.nombre = nombre;
 	}
 
-	public float getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
-		this.precio = precio;
-	}
-
-	public float getGraduacion() {
-		return graduacion;
-	}
-
-	public void setGraduacion(float graduacion) {
-		this.graduacion = graduacion;
+	public void setPrecio(double d) {
+		this.precio = d;
 	}
 
 	@Override
 	public String toString() {
-		return "Bebida [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", graduacion=" + graduacion + "]";
+		return "Bebida [id=" + id + ", nombre=" + nombre + ", precio=" + precio + "]";
 	}
 
 }
