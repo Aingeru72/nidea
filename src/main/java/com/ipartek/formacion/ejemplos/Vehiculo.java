@@ -43,4 +43,8 @@ public abstract class Vehiculo {
 
 	public abstract void encenderLuces();
 
+	static void getMatricula() {
+		// Método dummy para probar el ámbito 'protected'
+	}
+
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.nidea.pojo.Material;
+import com.ipartek.formacion.util.Utilidades;
 import com.mysql.jdbc.MysqlDataTruncation;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
@@ -151,6 +152,9 @@ public class MaterialDAO implements Persistible<Material> {
 
 		boolean resul = false;
 		String sql = "";
+
+		// Sanear ("saniti") el nombre del material
+		material.setNombre(Utilidades.limipiarEspacios(material.getNombre()));
 
 		if (material.getId() == -1) {
 			sql = "INSERT INTO `nidea`.`material` (`nombre`, `precio`) VALUES (?, ?);";
