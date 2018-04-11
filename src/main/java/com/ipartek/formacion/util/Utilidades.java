@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejemplos;
+package com.ipartek.formacion.util;
 
 public class Utilidades {
 
@@ -8,7 +8,7 @@ public class Utilidades {
 	 * 
 	 * Limpiar los carácteres vacios de una cadena: Aplicamos un cadena.trim() y
 	 * reemplazamos los espacios entre palabras por un único espacio: <br>
-	 * " ¿ Hola que tal ? " --> "¿Hola que tal?"
+	 * "  ¿  Hola   que   tal  ?  " --> "¿ Hola que tal ?"
 	 * 
 	 * @param cadena
 	 * @return cadena sin espacios en blanco; SI cadena == NULL return "";

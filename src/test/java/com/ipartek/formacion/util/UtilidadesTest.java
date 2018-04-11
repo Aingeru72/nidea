@@ -1,8 +1,10 @@
-package com.ipartek.formacion.ejemplos;
+package com.ipartek.formacion.util;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import com.ipartek.formacion.util.Utilidades;
 
 public class UtilidadesTest {
 
