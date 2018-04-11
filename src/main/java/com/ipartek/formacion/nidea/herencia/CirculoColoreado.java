@@ -1,4 +1,4 @@
-package com.ipartek.formacion.herencia;
+package com.ipartek.formacion.nidea.herencia;
 
 public final class CirculoColoreado extends Circulo {
 

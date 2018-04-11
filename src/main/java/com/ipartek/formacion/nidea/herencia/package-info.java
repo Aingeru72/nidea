@@ -4,4 +4,4 @@
  * @author Aingeru Sanchez
  *
  */
-package com.ipartek.formacion.herencia;
+package com.ipartek.formacion.nidea.herencia;

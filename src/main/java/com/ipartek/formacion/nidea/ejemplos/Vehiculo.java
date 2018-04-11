@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejemplos;
+package com.ipartek.formacion.nidea.ejemplos;
 
 public abstract class Vehiculo {
 

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.nidea.pojo.Material;
-import com.ipartek.formacion.util.Utilidades;
+import com.ipartek.formacion.nidea.util.Utilidades;
 import com.mysql.jdbc.MysqlDataTruncation;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 

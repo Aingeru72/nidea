@@ -1,4 +1,4 @@
-package com.ipartek.formacion.util;
+package com.ipartek.formacion.nidea.util;
 
 public class Utilidades {
 

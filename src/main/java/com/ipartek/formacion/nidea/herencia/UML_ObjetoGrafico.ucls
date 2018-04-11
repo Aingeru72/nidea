@@ -2,8 +2,8 @@
 <class-diagram version="1.2.2" icons="true" automaticImage="JPEG" always-add-relationships="false" 
   generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true" 
   router="FAN">  
-  <class id="1" language="java" name="com.ipartek.formacion.herencia.Circulo" project="nidea" 
-    file="/nidea/src/main/java/com/ipartek/formacion/herencia/Circulo.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="com.ipartek.formacion.nidea.herencia.Circulo" project="nidea" 
+    file="/nidea/src/main/java/com/ipartek/formacion/nidea/herencia/Circulo.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="268" y="243"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -11,8 +11,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.ipartek.formacion.herencia.ObjetoGrafico" project="nidea" 
-    file="/nidea/src/main/java/com/ipartek/formacion/herencia/ObjetoGrafico.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="com.ipartek.formacion.nidea.herencia.ObjetoGrafico" project="nidea" 
+    file="/nidea/src/main/java/com/ipartek/formacion/nidea/herencia/ObjetoGrafico.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="224" width="142" x="539" y="4"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -20,8 +21,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.ipartek.formacion.herencia.Triangulo" project="nidea" 
-    file="/nidea/src/main/java/com/ipartek/formacion/herencia/Triangulo.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="com.ipartek.formacion.nidea.herencia.Triangulo" project="nidea" 
+    file="/nidea/src/main/java/com/ipartek/formacion/nidea/herencia/Triangulo.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="869" y="336"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -29,8 +30,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.ipartek.formacion.herencia.Rectangulo" project="nidea" 
-    file="/nidea/src/main/java/com/ipartek/formacion/herencia/Rectangulo.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="com.ipartek.formacion.nidea.herencia.Rectangulo" project="nidea" 
+    file="/nidea/src/main/java/com/ipartek/formacion/nidea/herencia/Rectangulo.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="608" y="409"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -38,8 +40,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="5" language="java" name="com.ipartek.formacion.herencia.Imprimible" project="nidea" 
-    file="/nidea/src/main/java/com/ipartek/formacion/herencia/Imprimible.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="5" language="java" name="com.ipartek.formacion.nidea.herencia.Imprimible" project="nidea" 
+    file="/nidea/src/main/java/com/ipartek/formacion/nidea/herencia/Imprimible.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="995" y="117"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -47,8 +50,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="6" language="java" name="com.ipartek.formacion.herencia.CirculoColoreado" project="nidea" 
-    file="/nidea/src/main/java/com/ipartek/formacion/herencia/CirculoColoreado.java" binary="false" 
+  <class id="6" language="java" name="com.ipartek.formacion.nidea.herencia.CirculoColoreado" project="nidea" 
+    file="/nidea/src/main/java/com/ipartek/formacion/nidea/herencia/CirculoColoreado.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="265" y="459"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
