@@ -53,9 +53,11 @@ public class EjercicioOrdenable {
 	private static void imprimirLista(ArrayList<Ordenable> lista) {
 
 		Iterator<Ordenable> it = lista.iterator();
+		Ordenable current = null;
 		while (it.hasNext()) {
-			// System.out.println(it.next());
-			System.out.println("Valor para ordenar: " + it.next().getValor());
+			current = it.next();
+			System.out.println(
+					"Clase: " + current.getClass().getSimpleName() + " | Valor para ordenar: " + current.getValor());
 		}
 
 	}
