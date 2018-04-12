@@ -15,7 +15,6 @@
      	<a class="btn btn-outline-primary" href="login">Login</a>
      </c:if>
      <c:if test="${!empty usuario}">
-     	<c:set var = "usuario" scope = "session" value = "${usuario}"/>
      	<nav class="my-2 my-md-0 mr-md-10">
 	     	<c:if test="${usuario == 'admin'}">
 		     	<a href="backoffice/materiales?op=0">Materiales</a>

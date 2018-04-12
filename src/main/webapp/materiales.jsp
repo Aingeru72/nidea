@@ -6,6 +6,8 @@
 <%@include file="/templates/navbar.jsp" %>
 <%@include file="/templates/alert.jsp" %>
 
+${applicationScope.usuarios_conectados}
+
 <!-- Usar ${variable} = EL: Expresion Lenguage -->
 <!-- Se puede usar cualquier expresión, en caso de no existir, pinta la variable -->
 <h1>Materiales</h1> 

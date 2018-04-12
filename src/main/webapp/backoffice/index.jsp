@@ -10,7 +10,8 @@
 
 ${usuarios_activos}
 
-<c:forEach items="${usuarios_activos}" var="usuario"> 
+<!-- items="${usuarios_activos}"-->
+<c:forEach items="${applicationScope.usuarios_activos}" var="usuario"> 
 	
 	<li>${usuario.getKey()}. ${usuario.getValue()}</li>
 
