@@ -1,7 +1,9 @@
 package com.ipartek.formacion.nidea.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +27,10 @@ public class LoginController extends HttpServlet {
 
 	private static final String USER = "admin";
 	private static final String PASS = "admin";
+
+	private static int new_id = 0;
+	ServletContext ctxServlet = null;
+	HashMap<Integer, String> usuarios_activos;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -50,10 +56,7 @@ public class LoginController extends HttpServlet {
 			String password = request.getParameter("password");
 
 			if (USER.equalsIgnoreCase(usuario) && PASS.equals(password)) {
-
-				// enviar como atributo la lista de materiales
-				// MaterialDAO dao = MaterialDAO.getInstance();
-				// request.setAttribute("materiales", dao.getAll());
+				// Login como ADMIN
 
 				// guardar usuario en sesión
 				HttpSession session = request.getSession();
@@ -68,12 +71,34 @@ public class LoginController extends HttpServlet {
 				 */
 				session.setMaxInactiveInterval(SESSION_EXPIRATION);
 
+				// Cargar usuarios_activos
+				ctxServlet = request.getServletContext();
+				usuarios_activos = (HashMap<Integer, String>) ctxServlet.getAttribute("usuarios_activos");
+				if (usuarios_activos != null) {
+					// Guardar usuarios_activos en la request
+					request.setAttribute("usuarios_activos", usuarios_activos);
+				}
+
 				view = "backoffice/index.jsp";
 				alert = null /* new Alert("Ongi Etorri", Alert.TIPO_PRIMARY) */;
-			} else {
+			} else if (usuario != null && password != null) {
+				// Usuario normal
+				ctxServlet = request.getServletContext();
+				usuarios_activos = (HashMap<Integer, String>) ctxServlet.getAttribute("usuarios_activos");
+				if (usuarios_activos == null) {
+					// Inicializar el HashMap de usuarios
+					usuarios_activos = new HashMap<Integer, String>();
+				}
+				new_id++;
+				usuarios_activos.put(new_id, usuario);
 
+				ctxServlet.setAttribute("usuarios_activos", usuarios_activos);
+
+				view = "materiales.jsp";
+				alert = new Alert("Bienvenido " + usuario, Alert.TIPO_PRIMARY);
+			} else {
 				view = "login.jsp";
-				alert = new Alert("Credenciales incorrectas, prueba de nuevo");
+				alert = new Alert("Credenciales incorrectas, prueba de nuevo", Alert.TIPO_DANGER);
 			}
 
 		} catch (Exception e) {
