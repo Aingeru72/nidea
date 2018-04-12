@@ -1,6 +1,8 @@
 package com.ipartek.formacion.nidea.herencia;
 
-public class Circulo extends ObjetoGrafico {
+import com.ipartek.formacion.nidea.ejemplos.Ordenable;
+
+public class Circulo extends ObjetoGrafico implements Ordenable {
 
 	// Atributos
 	private int radio;
@@ -37,8 +39,13 @@ public class Circulo extends ObjetoGrafico {
 
 	@Override
 	void dibujar() {
-		// TODO Auto-generated method stub
+		System.out.println("Dibujar Circulo");
 
+	}
+
+	@Override
+	public int getValor() {
+		return this.getRadio();
 	}
 
 }

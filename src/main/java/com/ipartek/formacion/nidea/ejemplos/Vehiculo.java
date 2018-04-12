@@ -1,6 +1,6 @@
 package com.ipartek.formacion.nidea.ejemplos;
 
-public abstract class Vehiculo {
+public abstract class Vehiculo implements Ordenable {
 
 	// Atributos
 	private int puertas;
@@ -45,6 +45,11 @@ public abstract class Vehiculo {
 
 	static void getMatricula() {
 		// Método dummy para probar el ámbito 'protected'
+	}
+
+	@Override
+	public int getValor() {
+		return this.getPuertas();
 	}
 
 }
