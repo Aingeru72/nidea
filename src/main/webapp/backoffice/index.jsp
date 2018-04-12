@@ -12,7 +12,7 @@ ${usuarios_activos}
 
 <c:forEach items="${usuarios_activos}" var="usuario"> 
 	
-	<li>${usuario.getKey()} - ${usuario.getValue()}</li>
+	<li>${usuario.getKey()}. ${usuario.getValue()}</li>
 
 </c:forEach>
 

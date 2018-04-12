@@ -91,8 +91,12 @@ public class LoginController extends HttpServlet {
 				}
 				new_id++;
 				usuarios_activos.put(new_id, usuario);
-
 				ctxServlet.setAttribute("usuarios_activos", usuarios_activos);
+
+				// guardar usuario en sesión
+				HttpSession session = request.getSession();
+				session.setAttribute("usuario", usuario);
+				session.setMaxInactiveInterval(SESSION_EXPIRATION);
 
 				view = "materiales.jsp";
 				alert = new Alert("Bienvenido " + usuario, Alert.TIPO_PRIMARY);
