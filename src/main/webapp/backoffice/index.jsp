@@ -8,12 +8,12 @@
 
 <h2>Usuarios activos</h2>
 
-${usuarios_activos}
+<%-- ${usuarios_activos} --%>
 
 <!-- items="${usuarios_activos}"-->
 <c:forEach items="${applicationScope.usuarios_activos}" var="usuario"> 
 	
-	<li>${usuario.getKey()}. ${usuario.getValue()}</li>
+	<li>${usuario.getKey()}. ${usuario.getValue().getNombre()}</li>
 
 </c:forEach>
 
