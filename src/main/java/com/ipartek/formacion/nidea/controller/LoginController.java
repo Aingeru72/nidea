@@ -25,8 +25,8 @@ public class LoginController extends HttpServlet {
 	private String view = "";
 	private Alert alert = new Alert();
 
-	private static final String USER = "admin";
-	private static final String PASS = "admin";
+	private static final String USER = "administrador";
+	private static final String PASS = "123456";
 
 	private static int new_id = 0;
 	ServletContext ctxServlet = null;
@@ -50,18 +50,23 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		Usuario usuario = new Usuario();
+
 		try {
 
-			String usuario = request.getParameter("usuario");
+			String username = request.getParameter("usuario");
 			String password = request.getParameter("password");
-			request.getSession().setAttribute("uLogeado", new Usuario(new_id, usuario));
-			new_id++;
+
+			usuario.setNombre(username);
+			usuario.setPass(password);
+
+			request.getSession().setAttribute("uLogeado", usuario);
 
 			ctxServlet = request.getServletContext();
-			if (USER.equalsIgnoreCase(usuario) && PASS.equals(password)) {
-				loginAdmin(request, ctxServlet, usuario);
-			} else if (usuario != null && password != null) {
-				loginUser(request, ctxServlet, usuario);
+			if (USER.equalsIgnoreCase(username) && PASS.equals(password)) {
+				loginAdmin(request, ctxServlet, usuario.getNombre());
+			} else if (username != null && password != null) {
+				loginUser(request, ctxServlet, usuario.getNombre());
 			} else {
 				view = "login.jsp";
 				alert = new Alert("Credenciales incorrectas, prueba de nuevo", Alert.TIPO_DANGER);
