@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.nidea.model.UsuarioDAO;
 import com.ipartek.formacion.nidea.pojo.Alert;
 import com.ipartek.formacion.nidea.pojo.Usuario;
 
@@ -22,13 +23,9 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int SESSION_EXPIRATION = 60 * 60; // 60 minutos
 
+	private UsuarioDAO userDao = UsuarioDAO.getInstance();
 	private String view = "";
 	private Alert alert = new Alert();
-
-	private static final String USER = "administrador";
-	private static final String PASS = "123456";
-
-	private static int new_id = 0;
 	ServletContext ctxServlet = null;
 	// HashMap<Integer, String> usuarios_activos;
 
@@ -57,19 +54,21 @@ public class LoginController extends HttpServlet {
 			String username = request.getParameter("usuario");
 			String password = request.getParameter("password");
 
-			usuario.setNombre(username);
-			usuario.setPass(password);
-
+			usuario = userDao.getUser(username, password);
 			request.getSession().setAttribute("uLogeado", usuario);
-
 			ctxServlet = request.getServletContext();
-			if (USER.equalsIgnoreCase(username) && PASS.equals(password)) {
-				loginAdmin(request, ctxServlet, usuario.getNombre());
-			} else if (username != null && password != null) {
-				loginUser(request, ctxServlet, usuario.getNombre());
+
+			if (usuario.getId() != -1) {
+				if (usuario.getRol() == 1) {
+					// Login administrador
+					loginAdmin(request, ctxServlet, usuario.getNombre());
+				} else if (usuario.getRol() == 2) {
+					// Login usuario normal
+					loginUser(request, ctxServlet, usuario.getNombre());
+				}
 			} else {
 				view = "login.jsp";
-				alert = new Alert("Credenciales incorrectas, prueba de nuevo", Alert.TIPO_DANGER);
+				alert = new Alert("El usuario no existe o alguno de los datos es incorrecto", Alert.TIPO_WARNING);
 			}
 
 			// guardar usuario en sesión

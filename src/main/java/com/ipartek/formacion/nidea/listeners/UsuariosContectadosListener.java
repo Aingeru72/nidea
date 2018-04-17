@@ -25,21 +25,21 @@ public class UsuariosContectadosListener implements HttpSessionListener, HttpSes
 	 * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
 	 */
 	public void sessionCreated(HttpSessionEvent se) {
-		System.out.println("Sesion creada");
+		// System.out.println("Sesion creada");
 	}
 
 	/**
 	 * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
 	 */
 	public void sessionDestroyed(HttpSessionEvent se) {
-		System.out.println("Sesion cerrada");
+		// System.out.println("Sesion cerrada");
 	}
 
 	/**
 	 * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
 	 */
 	public void attributeAdded(HttpSessionBindingEvent event) {
-		System.out.println("Atributo creada");
+		// System.out.println("Atributo creada");
 
 		ServletContext ctxServlet;
 		Usuario user = (Usuario) event.getSession().getAttribute("uLogeado");
@@ -62,14 +62,14 @@ public class UsuariosContectadosListener implements HttpSessionListener, HttpSes
 	 * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
 	 */
 	public void attributeRemoved(HttpSessionBindingEvent event) {
-		System.out.println("Atributo eliminado");
+		// System.out.println("Atributo eliminado");
 	}
 
 	/**
 	 * @see HttpSessionAttributeListener#attributeReplaced(HttpSessionBindingEvent)
 	 */
 	public void attributeReplaced(HttpSessionBindingEvent event) {
-		System.out.println("Atributo reemplazado");
+		// System.out.println("Atributo reemplazado");
 	}
 
 }

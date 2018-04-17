@@ -68,7 +68,7 @@ public class UsuarioDAO implements Persistible<Usuario> {
 	 *            String que condiciona el filtro
 	 * @return lista con los Usuarios que cumplen la condición del filtro
 	 */
-	public ArrayList<Usuario> filterMateriales(String searchText) {
+	public ArrayList<Usuario> filterUsuarios(String searchText) {
 
 		ArrayList<Usuario> lista = new ArrayList<Usuario>();
 		String sql = "SELECT id,nombre FROM usuario WHERE nombre LIKE ? LIMIT 500;";
@@ -203,10 +203,33 @@ public class UsuarioDAO implements Persistible<Usuario> {
 			u = new Usuario();
 			u.setNombre(rs.getString("nombre"));
 			u.setId(rs.getInt("id"));
-			u.setPass(rs.getString("precio"));
+			u.setPass(rs.getString("password"));
+			u.setRol(rs.getInt("id_rol"));
 		}
 
 		return u;
+	}
+
+	public Usuario getUser(String username, String password) {
+		Usuario usuario = new Usuario();
+
+		String sql = "SELECT id, nombre, password, id_rol FROM usuario WHERE nombre = ? AND password = ?;";
+
+		try (Connection con = ConnectionManager.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
+			pst.setString(1, username);
+			pst.setString(2, password);
+			try (ResultSet rs = pst.executeQuery()) {
+				while (rs.next()) {
+					usuario = mapper(rs);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return usuario;
 	}
 
 }

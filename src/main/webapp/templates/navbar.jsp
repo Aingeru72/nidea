@@ -16,11 +16,11 @@
      </c:if>
      <c:if test="${!empty usuario}">
      	<nav class="my-2 my-md-0 mr-md-10">
-	     	<c:if test="${usuario == 'admin'}">
+	     	<c:if test="${usuario.rol == 1}">
 		     	<a href="backoffice/materiales?op=0">Materiales</a>
 				<!-- <a href="/backoffice/index.jsp">Backoffice</a> -->
 			</c:if>
-			<span class="badge badge-success">${usuario}</span>
+			<span class="badge badge-success">${usuario.nombre}</span>
 	     	<a class="btn btn-outline-danger" href="logout">Logout</a>
 		     
 	     </nav>
