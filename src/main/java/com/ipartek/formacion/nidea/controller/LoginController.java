@@ -59,10 +59,10 @@ public class LoginController extends HttpServlet {
 			ctxServlet = request.getServletContext();
 
 			if (usuario.getId() != -1) {
-				if (usuario.getRol() == 1) {
+				if (usuario.getRol().getId() == 1) {
 					// Login administrador
 					loginAdmin(request, ctxServlet, usuario.getNombre());
-				} else if (usuario.getRol() == 2) {
+				} else if (usuario.getRol().getId() == 2) {
 					// Login usuario normal
 					loginUser(request, ctxServlet, usuario.getNombre());
 				}

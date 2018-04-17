@@ -16,7 +16,7 @@
      </c:if>
      <c:if test="${!empty usuario}">
      	<nav class="my-2 my-md-0 mr-md-10">
-	     	<c:if test="${usuario.rol == 1}">
+	     	<c:if test="${usuario.rol.id == 1}">
 		     	<a href="backoffice/materiales?op=0">Materiales</a>
 				<!-- <a href="/backoffice/index.jsp">Backoffice</a> -->
 			</c:if>

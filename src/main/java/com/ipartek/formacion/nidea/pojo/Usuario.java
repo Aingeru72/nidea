@@ -6,7 +6,7 @@ public class Usuario {
 	private int id;
 	private String nombre;
 	private String pass;
-	private int rol;
+	private Rol rol;
 
 	// Constructor
 	public Usuario() {
@@ -14,7 +14,7 @@ public class Usuario {
 		this.id = -1;
 		this.nombre = "";
 		this.pass = "";
-		this.rol = 0;
+		this.rol = new Rol();
 	}
 
 	// public Usuario(String nombre, String pass) {
@@ -48,11 +48,11 @@ public class Usuario {
 		this.pass = pass;
 	}
 
-	public int getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 
-	public void setRol(int rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 
