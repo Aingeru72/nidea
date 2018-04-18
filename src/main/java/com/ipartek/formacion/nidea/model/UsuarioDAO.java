@@ -210,8 +210,17 @@ public class UsuarioDAO implements Persistible<Usuario> {
 		return u;
 	}
 
+	/**
+	 * Buscamos un usuario en la BD a partir del nombre y la constraseña
+	 * 
+	 * @param username
+	 *            : nombre del usuario
+	 * @param password
+	 *            : contraseña del usuario
+	 * @return : Usuario obtenido de la BD; Si no existe, devuelve null.
+	 */
 	public Usuario getUser(String username, String password) {
-		Usuario usuario = new Usuario();
+		Usuario usuario = null;
 
 		String sql = "SELECT id, nombre, password, id_rol FROM usuario WHERE nombre = ? AND password = ?;";
 

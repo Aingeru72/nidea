@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
 			request.getSession().setAttribute("uLogeado", usuario);
 			ctxServlet = request.getServletContext();
 
-			if (usuario.getId() != -1) {
+			if (usuario != null) {
 				if (usuario.getRol().getId() == 1) {
 					// Login administrador
 					loginAdmin(request, ctxServlet, usuario.getNombre());
