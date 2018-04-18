@@ -43,9 +43,17 @@ public class BackofficeFilter implements Filter {
 
 		HttpSession session = req.getSession();
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		if (usuario != null && (usuario.getRol().getId() == Rol.ROL_ADMIN)) {
-			// pass the request along the filter chain
-			chain.doFilter(request, response);
+		if (usuario != null) {
+			if (usuario.getRol().getId() == Rol.ROL_ADMIN) {
+				// pass the request along the filter chain
+				chain.doFilter(request, response);
+			} else if (usuario.getRol().getId() == Rol.ROL_USUARIO) {
+				informacionPeticion(req);
+				// Si intenta entrar en backoffice siendo usuario normal: redireccionar a
+				// Frontoffice
+				res.sendRedirect(req.getContextPath() + "/materiales");
+			}
+
 		} else {
 			informacionPeticion(req);
 			// En caso de no haber iniciado sesión previamente --> Redirección a login
