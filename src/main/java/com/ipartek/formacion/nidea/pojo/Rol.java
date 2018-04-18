@@ -2,6 +2,10 @@ package com.ipartek.formacion.nidea.pojo;
 
 public class Rol {
 
+	// Constantes
+	public static final int ROL_ADMIN = 1;
+	public static final int ROL_USUARIO = 2;
+
 	// Atributos
 	private int id;
 	private String nombre;
