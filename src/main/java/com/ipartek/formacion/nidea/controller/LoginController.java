@@ -22,12 +22,22 @@ public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final int SESSION_EXPIRATION = 60 * 60; // 60 minutos
+	// Vistas
+	private static final String VIEW_BACKOFFICE = "backoffice/index.jsp";
+	private static final String VIEW_FRONTOFFICE = "materiales.jsp";
+	private static final String VIEW_LOGIN = "login.jsp";
 
-	private UsuarioDAO userDao = UsuarioDAO.getInstance();
+	private UsuarioDAO userDao;
 	private String view = "";
 	private Alert alert = new Alert();
-	ServletContext ctxServlet = null;
+	private ServletContext ctxServlet = null;
 	// HashMap<Integer, String> usuarios_activos;
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		userDao = UsuarioDAO.getInstance();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -67,7 +77,7 @@ public class LoginController extends HttpServlet {
 					loginUser(request, ctxServlet, usuario.getNombre());
 				}
 			} else {
-				view = "login.jsp";
+				view = VIEW_LOGIN;
 				alert = new Alert("El usuario no existe o alguno de los datos es incorrecto", Alert.TIPO_WARNING);
 			}
 
@@ -105,7 +115,7 @@ public class LoginController extends HttpServlet {
 		// request.setAttribute("usuarios_activos", usuarios_activos);
 		// }
 
-		view = "backoffice/index.jsp";
+		view = VIEW_BACKOFFICE;
 		alert = null /* new Alert("Ongi Etorri", Alert.TIPO_PRIMARY) */;
 
 	}
@@ -122,7 +132,7 @@ public class LoginController extends HttpServlet {
 		// usuarios_activos.put(new_id, usuario);
 		// ctxServlet.setAttribute("usuarios_activos", usuarios_activos);
 
-		view = "materiales.jsp";
+		view = VIEW_FRONTOFFICE;
 		alert = new Alert("Bienvenido " + usuario, Alert.TIPO_PRIMARY);
 
 	}
