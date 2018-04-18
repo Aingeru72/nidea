@@ -78,21 +78,21 @@ public class MaterialDAO implements Persistible<Material> {
 		ArrayList<Material> lista = new ArrayList<Material>();
 		String sql = "SELECT id,nombre,precio FROM material WHERE nombre LIKE ? ORDER BY id DESC LIMIT 500;";
 
-		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement pst = con.prepareStatement(sql);
-				ResultSet rs = pst.executeQuery();) {
+		try (Connection con = ConnectionManager.getConnection(); PreparedStatement pst = con.prepareStatement(sql);) {
 
-			pst.setString(1, "%" + searchText + "%");
-
-			// Class.forName("com.mysql.jdbc.Driver");
-			// final String URL =
-			// "jdbc:mysql://192.168.0.42/spoty?user=alumno&password=alumno";
-			// con = DriverManager.getConnection(URL);
-
-			Material m = null;
-			while (rs.next()) {
-				m = mapper(rs);
-				lista.add(m);
+			try {
+				pst.setString(1, "%" + searchText + "%");
+				ResultSet rs = pst.executeQuery();
+				Material m = null;
+				while (rs.next()) {
+					m = mapper(rs);
+					lista.add(m);
+				}
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		} catch (Exception e) {
@@ -113,6 +113,9 @@ public class MaterialDAO implements Persistible<Material> {
 			try (ResultSet rs = pst.executeQuery()) {
 				while (rs.next()) {
 					material = mapper(rs);
+				}
+				if (rs != null) {
+					rs.close();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

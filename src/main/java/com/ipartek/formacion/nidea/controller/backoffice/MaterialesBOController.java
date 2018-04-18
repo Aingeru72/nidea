@@ -31,8 +31,7 @@ public class MaterialesBOController extends HttpServlet {
 	public static final int OP_ELIMINAR = 3;
 	public static final int OP_GUARDAR = 4;
 
-	// private RequestDispatcher dispatcher;
-	private String view = VIEW_INDEX;;
+	private String view = VIEW_INDEX;
 	private Alert alert = null;
 	private MaterialDAO dao = null;
 
